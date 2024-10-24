@@ -454,6 +454,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e5eb9c46f42246040849399d3b6bd19d, type: 2}
   - {fileID: 11400000, guid: c89e06bc80ee9dd4294bc458a32886a6, type: 2}
   - {fileID: 11400000, guid: 21e95f9eddc3c5b49bf5be3371dd7080, type: 2}
+  displayingText: 0
+  lettersPerSecond: 30
 --- !u!4 &787061009
 Transform:
   m_ObjectHideFlags: 0
@@ -483,7 +485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usableItemList:
   - {fileID: 11400000, guid: b427e830bd590d4448754a39dbe32a51, type: 2}
-  nounsInRoom: []
+  objectsInRoom: []
 --- !u!850595691 &802536205
 LightingSettings:
   m_ObjectHideFlags: 0

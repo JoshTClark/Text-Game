@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083780a4aeac2b54ea31a4045ba3666a, type: 3}
   m_Name: TestRoom
   m_EditorClassIdentifier: 
-  description: Hello, this is a room. Test Test Test test test test. There are rooms
-    to the north, south, and east.
+  description: 'Hello, this is a room. Test Test Test test test test. There are rooms
+    to the north, south, and east. '
   roomName: 
   exits:
   - keyStrings:

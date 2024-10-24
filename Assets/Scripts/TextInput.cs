@@ -12,9 +12,9 @@ public class TextInput : MonoBehaviour
 
     private GameController controller;
 
-    void Start()
+    private void Start()
     {
-        inputField.ActivateInputField();
+        inputField.DeactivateInputField();
         inputField.Select();
 
         controller = GetComponent<GameController>();
@@ -32,7 +32,7 @@ public class TextInput : MonoBehaviour
             return;
         }
 
-        controller.LogStringWithReturn("   >" + userInput);
+        controller.LogStringWithReturn("   >" + userInput, true);
 
         char[] delimiterCharacters = { ' ' };
         string[] seperatedInputWords = userInput.Split(delimiterCharacters);
@@ -56,7 +56,18 @@ public class TextInput : MonoBehaviour
     public void InputComplete()
     {
         controller.DisplayLoggedText();
-        inputField.ActivateInputField();
         inputField.text = string.Empty;
+    }
+
+    public void CanPlayerType(bool canPlayerType)
+    {
+        if (canPlayerType)
+        {
+            inputField.ActivateInputField();
+        }
+        else 
+        {
+            inputField.DeactivateInputField();
+        }
     }
 }

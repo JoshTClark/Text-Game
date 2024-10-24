@@ -15,29 +15,88 @@ public class GameController : MonoBehaviour
     public RoomNavigation navigation;
     [HideInInspector]
     public InteractableItems interactableItems;
+    [HideInInspector]
+    public TextInput textInput;
 
     public InputAction[] inputActions;
 
-    private List<string> actionLog = new List<string>();
+    private List<TextActionLog> actionLog = new List<TextActionLog>();
+    private List<string> finalActionLog = new List<string>();
+
+    // Text animation stuff
+    [HideInInspector]
+    public bool displayingText = false;
+    public int lettersPerSecond;
+    private float letterTimer = 0.0f;
+    private int actionLogIndex = 0;
+    private int textIndex = 0;
 
 
     private void Awake()
     {
+        textInput = GetComponent<TextInput>();
         navigation = GetComponent<RoomNavigation>();
         interactableItems = GetComponent<InteractableItems>();
     }
 
-    void Start()
+    private void Start()
     {
         DisplayRoomText();
         DisplayLoggedText();
     }
 
+    private void Update()
+    {
+        if (displayingText)
+        {
+            textInput.CanPlayerType(false);
+            letterTimer += Time.deltaTime;
+            if (letterTimer >= 1.0f / lettersPerSecond)
+            {
+                if (actionLogIndex < actionLog.Count)
+                {
+                    TextActionLog currentLog = actionLog[actionLogIndex];
+                    if (actionLogIndex >= finalActionLog.Count)
+                    {
+                        finalActionLog.Add("");
+                    }
+                    if (currentLog.showInstant) 
+                    {
+                        finalActionLog[actionLogIndex] = currentLog.text;
+                        actionLogIndex++;
+                        textIndex = 0;
+                    }
+                    else if (textIndex < currentLog.text.Length)
+                    {
+                        //Debug.Log(currentLog.text[textIndex]);
+                        //Debug.Log(actionLogIndex);
+                        //Debug.Log(textIndex);
+                        finalActionLog[actionLogIndex] += currentLog.text[textIndex];
+                        textIndex++;
+                    }
+                    else
+                    {
+                        actionLogIndex++;
+                        textIndex = 0;
+                    }
+                }
+                else
+                {
+                    textInput.CanPlayerType(true);
+                    displayingText = false;
+                }
+                letterTimer = 0.0f;
+            }
+
+            string logAsText = string.Join("\n", finalActionLog);
+
+            displayText.text = logAsText;
+        }
+    }
+
     public void DisplayLoggedText()
     {
-        string logAsText = string.Join("\n", actionLog);
-
-        displayText.text = logAsText;
+        displayingText = true;
     }
 
     public void DisplayRoomText()
@@ -53,14 +112,18 @@ public class GameController : MonoBehaviour
         LogStringWithReturn(combined);
     }
 
-    public void LogStringWithReturn(string stringToAdd)
+    public void LogStringWithReturn(string stringToAdd, bool showInstant = false)
     {
-        actionLog.Add(stringToAdd + "\n");
+        LogString(stringToAdd + "\n", showInstant);
     }
 
-    public void LogString(string stringToAdd)
+    public void LogString(string stringToAdd, bool showInstant = false)
     {
-        actionLog.Add(stringToAdd);
+        TextActionLog log = new TextActionLog();
+        log.text = stringToAdd;
+        log.showInstant = showInstant;
+
+        actionLog.Add(log);
     }
 
     public void UnpackRoom()
@@ -115,5 +178,11 @@ public class GameController : MonoBehaviour
         interactionDescriptionsInRoom.Clear();
         navigation.ClearExits();
         interactableItems.ClearCollections();
+    }
+
+    private class TextActionLog
+    {
+        public bool showInstant;
+        public string text;
     }
 }
