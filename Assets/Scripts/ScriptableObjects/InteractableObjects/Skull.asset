@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c757fe72afebd640be9cce780be13b1, type: 3}
   m_Name: Skull
   m_EditorClassIdentifier: 
-  noun: Skull
+  objectName: Skull
   keyWords:
   - skull
+  - bone
   interactions:
   - inputAction: {fileID: 11400000, guid: e5eb9c46f42246040849399d3b6bd19d, type: 2}
     textResponse: The skull is blackened and charred.
-  roomDescription: A skull lays against the corner of the room.
-  examineDescription: Description in room
+    actionResponse: {fileID: 0}
+  - inputAction: {fileID: 11400000, guid: c89e06bc80ee9dd4294bc458a32886a6, type: 2}
+    textResponse: You take the skull.
+    actionResponse: {fileID: 0}

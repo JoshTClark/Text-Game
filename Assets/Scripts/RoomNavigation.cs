@@ -23,7 +23,6 @@ public class RoomNavigation : MonoBehaviour
             {
                 exitDictionary.Add(s, currentRoom.exits[i].valueRoom);
             }
-            gameController.interactionDescriptionsInRoom.Add(currentRoom.exits[i].exitDescription);
         }
     }
 

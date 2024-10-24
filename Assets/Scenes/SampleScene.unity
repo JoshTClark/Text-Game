@@ -179,61 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test
-
-    Test'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce5e1296f89448f4baa7f31b67dc883d, type: 2}
   m_sharedMaterial: {fileID: 643158299276647713, guid: ce5e1296f89448f4baa7f31b67dc883d, type: 2}
@@ -506,6 +452,8 @@ MonoBehaviour:
   inputActions:
   - {fileID: 11400000, guid: 4b1e69c06f12c0e49856eabc9759d18f, type: 2}
   - {fileID: 11400000, guid: e5eb9c46f42246040849399d3b6bd19d, type: 2}
+  - {fileID: 11400000, guid: c89e06bc80ee9dd4294bc458a32886a6, type: 2}
+  - {fileID: 11400000, guid: 21e95f9eddc3c5b49bf5be3371dd7080, type: 2}
 --- !u!4 &787061009
 Transform:
   m_ObjectHideFlags: 0
@@ -533,6 +481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf82d4c21c9b734e840cb183a8f29b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usableItemList:
+  - {fileID: 11400000, guid: b427e830bd590d4448754a39dbe32a51, type: 2}
   nounsInRoom: []
 --- !u!850595691 &802536205
 LightingSettings:

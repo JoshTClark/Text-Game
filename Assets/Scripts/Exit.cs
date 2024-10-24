@@ -6,6 +6,5 @@ using UnityEngine;
 public class Exit 
 {
     public List<string> keyStrings;
-    public string exitDescription;
     public Room valueRoom;
 }

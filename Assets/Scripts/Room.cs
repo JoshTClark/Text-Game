@@ -10,5 +10,13 @@ public class Room : ScriptableObject
     public string roomName;
 
     public List<Exit> exits = new List<Exit>();
-    public List<InteractableObject> interactableObjectsInRoom;
+    public List<InteractableObjectRoomData> interactableObjectsInRoom;
+
+    [System.Serializable]
+    public class InteractableObjectRoomData 
+    {
+        public InteractableObject interactableObject;
+        [TextArea]
+        public string roomDescription = "Description in room";
+    }
 }

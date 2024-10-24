@@ -12,20 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083780a4aeac2b54ea31a4045ba3666a, type: 3}
   m_Name: TestRoom
   m_EditorClassIdentifier: 
-  description: Hello, this is a room. Test Test Test test test test.
+  description: Hello, this is a room. Test Test Test test test test. There are rooms
+    to the north, south, and east.
   roomName: 
   exits:
   - keyStrings:
     - north
-    exitDescription: To the north is a room.
     valueRoom: {fileID: 11400000, guid: 3ffac676865f4ca46b9a46fede7e7b2d, type: 2}
   - keyStrings:
     - south
-    exitDescription: To the south is a room.
     valueRoom: {fileID: 11400000, guid: 02f183330f8a91340a8e5054d4a9d319, type: 2}
   - keyStrings:
     - east
-    exitDescription: To the east is a room.
     valueRoom: {fileID: 11400000, guid: c4f311e18ac67e040b607804059c5fae, type: 2}
   interactableObjectsInRoom:
-  - {fileID: 11400000, guid: b427e830bd590d4448754a39dbe32a51, type: 2}
+  - interactableObject: {fileID: 11400000, guid: b427e830bd590d4448754a39dbe32a51, type: 2}
+    roomDescription: A blackened skull leans against the corner of the room.

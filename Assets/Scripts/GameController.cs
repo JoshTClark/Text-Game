@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     public InteractableItems interactableItems;
 
     public InputAction[] inputActions;
-    //public string[] ignoredWords;
+
     private List<string> actionLog = new List<string>();
 
 
@@ -80,13 +80,20 @@ public class GameController : MonoBehaviour
                 interactionDescriptionsInRoom.Add(descriptionNotInInventory);
             }
 
-            InteractableObject interactableInRoom = currentRoom.interactableObjectsInRoom[i];
+            InteractableObject interactableInRoom = currentRoom.interactableObjectsInRoom[i].interactableObject;
             for (int j = 0; j < interactableInRoom.interactions.Count; j++)
             {
                 Interaction interaction = interactableInRoom.interactions[j];
-                if (interaction.inputAction.keywords.Contains("examine"))
+                for (int k = 0; k < interactableInRoom.keyWords.Count; k++)
                 {
-                    interactableItems.examineDictionary.Add(interactableInRoom.noun.ToLower(), interaction.textResponse);
+                    if (interaction.inputAction.keywords.Contains("examine"))
+                    {
+                        interactableItems.examineDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
+                    }
+                    if (interaction.inputAction.keywords.Contains("take"))
+                    {
+                        interactableItems.takeDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
+                    }
                 }
             }
         }
