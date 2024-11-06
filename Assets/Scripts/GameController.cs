@@ -3,6 +3,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using static Room;
 
 public class GameController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GameController : MonoBehaviour
     private TMP_Text displayText;
 
     [HideInInspector]
-    public List<string> interactionDescriptionsInRoom;
+    public List<InteractableObjectRoomData> interactionDataInRoom;
     [HideInInspector]
     public RoomNavigation navigation;
     [HideInInspector]
@@ -104,12 +105,30 @@ public class GameController : MonoBehaviour
         ClearCollectionsForNewRoom();
 
         UnpackRoom();
+        Room currentRoom = navigation.currentRoom;
 
-        string joinedInteractionDescriptions = string.Join(" ", interactionDescriptionsInRoom);
+        string finalDescription = currentRoom.description;
 
-        string combined = navigation.currentRoom.description + "\n" + joinedInteractionDescriptions;
+        for (int i = 0; i < currentRoom.interactableObjectsInRoom.Count; i++)
+        {
+            InteractableObjectRoomData interactableObjectData = currentRoom.interactableObjectsInRoom[i];
 
-        LogStringWithReturn(combined);
+            string replaceText = "<" + interactableObjectData.replaceValue + ">";
+
+            if (finalDescription.Contains(replaceText))
+            {
+                if (!interactableItems.IsObjectInInventory(currentRoom, interactableObjectData.interactableObject))
+                {
+                    finalDescription = finalDescription.Replace(replaceText, interactableObjectData.roomDescription);
+                }
+                else 
+                {
+                    finalDescription = finalDescription.Replace(replaceText, "");
+                }
+            }
+        }
+
+        LogStringWithReturn(finalDescription);
     }
 
     public void LogStringWithReturn(string stringToAdd, bool showInstant = false)
@@ -136,14 +155,9 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < currentRoom.interactableObjectsInRoom.Count; i++)
         {
-            string descriptionNotInInventory = interactableItems.GetObjectsNotInInventory(currentRoom, i);
-
-            if (descriptionNotInInventory != null)
-            {
-                interactionDescriptionsInRoom.Add(descriptionNotInInventory);
-            }
-
             InteractableObject interactableInRoom = currentRoom.interactableObjectsInRoom[i].interactableObject;
+            interactableItems.AddObjectToRoomObjectList(currentRoom, interactableInRoom);
+
             for (int j = 0; j < interactableInRoom.interactions.Count; j++)
             {
                 Interaction interaction = interactableInRoom.interactions[j];
@@ -175,7 +189,7 @@ public class GameController : MonoBehaviour
 
     public void ClearCollectionsForNewRoom()
     {
-        interactionDescriptionsInRoom.Clear();
+        interactionDataInRoom.Clear();
         navigation.ClearExits();
         interactableItems.ClearCollections();
     }

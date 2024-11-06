@@ -21,17 +21,22 @@ public class InteractableItems : MonoBehaviour
         controller = GetComponent<GameController>();
     }
 
-    public string GetObjectsNotInInventory(Room currentRoom, int i)
+    public void AddObjectToRoomObjectList(Room currentRoom, InteractableObject interactableObject)
     {
-        InteractableObject interactableObject = currentRoom.interactableObjectsInRoom[i].interactableObject;
-
         if (!objectsInInventory.Contains(interactableObject))
         {
             objectsInRoom.Add(interactableObject);
-            return currentRoom.interactableObjectsInRoom[i].roomDescription;
+        }
+    }
+
+    public bool IsObjectInInventory(Room currentRoom, InteractableObject interactableObject) 
+    {
+        if (objectsInInventory.Contains(interactableObject))
+        {
+            return true;
         }
 
-        return null;
+        return false;
     }
 
     public void AddActionResponsesToUseDictionary()

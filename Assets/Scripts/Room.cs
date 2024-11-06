@@ -15,6 +15,7 @@ public class Room : ScriptableObject
     [System.Serializable]
     public class InteractableObjectRoomData 
     {
+        public string replaceValue = "string to replace";
         public InteractableObject interactableObject;
         [TextArea]
         public string roomDescription = "Description in room";
