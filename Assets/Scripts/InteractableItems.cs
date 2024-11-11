@@ -7,7 +7,6 @@ public class InteractableItems : MonoBehaviour
 {
     public Dictionary<string, string> examineDictionary = new Dictionary<string, string>();
     public Dictionary<string, string> takeDictionary = new Dictionary<string, string>();
-    public List<InteractableObject> usableItemList = new List<InteractableObject>();
 
     [HideInInspector]
     public List<InteractableObject> objectsInRoom = new List<InteractableObject>();
@@ -43,13 +42,8 @@ public class InteractableItems : MonoBehaviour
     {
         for (int i = 0; i < objectsInInventory.Count; i++)
         {
-            string noun = objectsInInventory[i].objectName;
 
-            InteractableObject interactableObjectInIventory = GetInteractableObjectFromUsableList(noun);
-            if (interactableObjectInIventory == null)
-            {
-                continue;
-            }
+            InteractableObject interactableObjectInIventory = objectsInInventory[i];
             for (int j = 0; j < interactableObjectInIventory.interactions.Count; j++)
             {
                 Interaction interaction = interactableObjectInIventory.interactions[j];
@@ -67,18 +61,6 @@ public class InteractableItems : MonoBehaviour
                 }
             }
         }
-    }
-
-    public InteractableObject GetInteractableObjectFromUsableList(string noun)
-    {
-        for (int i = 0; i < usableItemList.Count; i++)
-        {
-            if (usableItemList[i].keyWords.Contains(noun.ToLower()))
-            {
-                return usableItemList[i];
-            }
-        }
-        return null;
     }
 
     public void DisplayInventory()

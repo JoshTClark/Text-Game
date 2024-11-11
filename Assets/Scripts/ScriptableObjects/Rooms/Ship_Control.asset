@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083780a4aeac2b54ea31a4045ba3666a, type: 3}
+  m_Name: Ship_Control
+  m_EditorClassIdentifier: 
+  description: "The Henrietta\u2019s control room is full of screens monitoring everything
+    you could think of for a vessel like this. A few of the screens are reporting
+    errors, but it shouldn\u2019t be a big issue. You\u2019re already aware of the
+    faults in the system scans. There is a door to the engine room and a ladder up
+    to the commons. This room is also connected to the airlock which will let you
+    go outside. Will sits at the end of the room speaking into a microphone and adjusting
+    some knobs."
+  exits:
+  - keyStrings:
+    - commons
+    - ladder
+    - up
+    valueRoom: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
+  - keyStrings:
+    - engine
+    - engines
+    - door
+    valueRoom: {fileID: 11400000, guid: cb8191091085d06429f3260e7512bc45, type: 2}
+  interactableObjectsInRoom: []

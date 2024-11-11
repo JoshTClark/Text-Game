@@ -15,7 +15,6 @@ public class TextInput : MonoBehaviour
     private void Start()
     {
         inputField.DeactivateInputField();
-        inputField.Select();
 
         controller = GetComponent<GameController>();
         inputField.onEndEdit.AddListener(AcceptStringInput);

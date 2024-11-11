@@ -1524,7 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fe54b25ad246e40be8e745cb94bc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRoom: {fileID: 11400000, guid: b35683d0a791b6c418778312e11eb72f, type: 2}
+  currentRoom: {fileID: 11400000, guid: f93e46ed4c935d24c8ca0ef429e9f41c, type: 2}
 --- !u!114 &787061007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: {fileID: 1429584510}
-  interactionDescriptionsInRoom: []
+  interactionDataInRoom: []
   navigation: {fileID: 0}
   interactableItems: {fileID: 0}
   textInput: {fileID: 0}
@@ -1589,8 +1589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf82d4c21c9b734e840cb183a8f29b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usableItemList:
-  - {fileID: 11400000, guid: b427e830bd590d4448754a39dbe32a51, type: 2}
   objectsInRoom: []
 --- !u!850595691 &802536205
 LightingSettings:
