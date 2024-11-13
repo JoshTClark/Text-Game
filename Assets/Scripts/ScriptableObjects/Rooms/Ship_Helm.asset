@@ -13,13 +13,29 @@ MonoBehaviour:
   m_Name: Ship_Helm
   m_EditorClassIdentifier: 
   description: "You stand at the helm of the IPRV Henrietta. There is a single door
-    leading to the common area of the ship. Levi is reading system scans off of the
-    monitor in the pilot\u2019s seat. Your command terminally is showing several
-    errors, but you are already aware of this. It\u2019s nothing threatening and
-    the crew is sorting it out."
+    leading to the common area of the ship. <Levi> Your command terminal is showing
+    several errors, but you are already aware of this. It\u2019s nothing threatening
+    and the crew is sorting it out."
   exits:
   - keyStrings:
     - door
     - commons
     valueRoom: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
   interactableObjectsInRoom: []
+  possibleCharactersInRoom:
+  - characterDataName: Levi
+    character: {fileID: 11400000, guid: 62b601c234806f84db9c474566d663a5, type: 2}
+    activatedAtStart: 1
+    roomDescription: "Levi is reading system scans off of the monitor in the pilot\u2019s
+      seat."
+    interactions:
+    - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
+      textResponse: "Levi: \u201CSorry about that captain. I just couldn\u2019t control
+        her well in those winds. Ship\u2019s AI thought the best option was to find
+        a suitable landing spot away from Gamma, and I think so too. Could\u2019ve
+        ended up much worse had we failed to land properly at Gamma, and there was
+        no way we could reverse our speed after atmospheric entry. I don\u2019t think
+        we\u2019ll be taking the Henrietta anywhere else soon either. This storm
+        isn\u2019t letting up at all. I wonder if there\u2019s another way to get
+        to Gamma from here.\u201D\r"
+      actionResponse: {fileID: 0}

@@ -9,7 +9,7 @@ public class Examine : InputAction
     {
         if (seperatedInputWords.Length > 1)
         {
-            controller.LogStringWithReturn(controller.TestVerbDictionaryWithNoun(controller.interactableItems.examineDictionary, seperatedInputWords[0], seperatedInputWords[1]));
+            controller.LogStringWithReturn(controller.TestVerbDictionaryWithNoun(controller.interactables.examineDictionary, seperatedInputWords[0], seperatedInputWords[1]));
         }
     }
 }

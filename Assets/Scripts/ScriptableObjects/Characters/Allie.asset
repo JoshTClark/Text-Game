@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537d6735afceb51438bda41de34b18eb, type: 3}
-  m_Name: Take
+  m_Script: {fileID: 11500000, guid: 84a55ae9478d602468c5c8686713a725, type: 3}
+  m_Name: Allie
   m_EditorClassIdentifier: 
-  keywords:
-  - take
-  - pickup
+  objectName: Allie
+  keyWords:
+  - Allie
+  - Staumer

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Interaction
 {
     public InputAction inputAction;
-    [TextArea]
+    [TextArea(1, 100)]
     public string textResponse;
     public ActionResponse actionResponse;
 }

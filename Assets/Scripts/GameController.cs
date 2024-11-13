@@ -4,6 +4,7 @@ using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using static Room;
+using Unity.VisualScripting;
 
 public class GameController : MonoBehaviour
 {
@@ -11,11 +12,9 @@ public class GameController : MonoBehaviour
     private TMP_Text displayText;
 
     [HideInInspector]
-    public List<InteractableObjectRoomData> interactionDataInRoom;
-    [HideInInspector]
     public RoomNavigation navigation;
     [HideInInspector]
-    public InteractableItems interactableItems;
+    public Interactables interactables;
     [HideInInspector]
     public TextInput textInput;
 
@@ -23,6 +22,8 @@ public class GameController : MonoBehaviour
 
     private List<TextActionLog> actionLog = new List<TextActionLog>();
     private List<string> finalActionLog = new List<string>();
+
+    private GameData gameData;
 
     // Text animation stuff
     [HideInInspector]
@@ -37,7 +38,9 @@ public class GameController : MonoBehaviour
     {
         textInput = GetComponent<TextInput>();
         navigation = GetComponent<RoomNavigation>();
-        interactableItems = GetComponent<InteractableItems>();
+        interactables = GetComponent<Interactables>();
+
+        gameData = new GameData();
     }
 
     private void Start()
@@ -61,7 +64,7 @@ public class GameController : MonoBehaviour
                     {
                         finalActionLog.Add("");
                     }
-                    if (currentLog.showInstant) 
+                    if (currentLog.showInstant)
                     {
                         finalActionLog[actionLogIndex] = currentLog.text;
                         actionLogIndex++;
@@ -117,11 +120,30 @@ public class GameController : MonoBehaviour
 
             if (finalDescription.Contains(replaceText))
             {
-                if (!interactableItems.IsObjectInInventory(currentRoom, interactableObjectData.interactableObject))
+                if (!interactables.IsObjectInInventory(currentRoom, interactableObjectData.interactableObject))
                 {
                     finalDescription = finalDescription.Replace(replaceText, interactableObjectData.roomDescription);
                 }
-                else 
+                else
+                {
+                    finalDescription = finalDescription.Replace(replaceText, "");
+                }
+            }
+        }
+
+        for (int i = 0; i < currentRoom.possibleCharactersInRoom.Count; i++)
+        {
+            CharacterRoomData characterRoomData = currentRoom.possibleCharactersInRoom[i];
+
+            string replaceText = "<" + characterRoomData.characterDataName + ">";
+
+            if (finalDescription.Contains(replaceText))
+            {
+                if (interactables.IsCharacterActivated(characterRoomData.characterDataName))
+                {
+                    finalDescription = finalDescription.Replace(replaceText, characterRoomData.roomDescription);
+                }
+                else
                 {
                     finalDescription = finalDescription.Replace(replaceText, "");
                 }
@@ -147,16 +169,16 @@ public class GameController : MonoBehaviour
 
     public void UnpackRoom()
     {
-        PrepareObjects(navigation.currentRoom);
+        PrepareInteractables(navigation.currentRoom);
         navigation.UnpackExits();
     }
 
-    public void PrepareObjects(Room currentRoom)
+    public void PrepareInteractables(Room currentRoom)
     {
         for (int i = 0; i < currentRoom.interactableObjectsInRoom.Count; i++)
         {
             InteractableObject interactableInRoom = currentRoom.interactableObjectsInRoom[i].interactableObject;
-            interactableItems.AddObjectToRoomObjectList(currentRoom, interactableInRoom);
+            interactables.AddObjectToRoomObjectList(currentRoom, interactableInRoom);
 
             for (int j = 0; j < interactableInRoom.interactions.Count; j++)
             {
@@ -165,11 +187,29 @@ public class GameController : MonoBehaviour
                 {
                     if (interaction.inputAction.keywords.Contains("examine"))
                     {
-                        interactableItems.examineDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
+                        interactables.examineDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
                     }
                     if (interaction.inputAction.keywords.Contains("take"))
                     {
-                        interactableItems.takeDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
+                        interactables.takeDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < currentRoom.possibleCharactersInRoom.Count; i++)
+        {
+            CharacterRoomData characterInRoom = currentRoom.possibleCharactersInRoom[i];
+            interactables.AddCharacterToRoomCharacterList(currentRoom, characterInRoom);
+
+            for (int j = 0; j < characterInRoom.interactions.Count; j++)
+            {
+                Interaction interaction = characterInRoom.interactions[j];
+                for (int k = 0; k < characterInRoom.character.keyWords.Count; k++)
+                {
+                    if (interaction.inputAction.keywords.Contains("talk") && interactables.IsCharacterActivated(characterInRoom.characterDataName))
+                    {
+                        interactables.talkDictionary.Add(characterInRoom.character.keyWords[k].ToLower(), interaction.textResponse);
                     }
                 }
             }
@@ -189,9 +229,8 @@ public class GameController : MonoBehaviour
 
     public void ClearCollectionsForNewRoom()
     {
-        interactionDataInRoom.Clear();
         navigation.ClearExits();
-        interactableItems.ClearCollections();
+        interactables.ClearCollections();
     }
 
     private class TextActionLog

@@ -1552,14 +1552,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayText: {fileID: 1429584510}
   interactionDataInRoom: []
+  characterDataInRoom: []
   navigation: {fileID: 0}
-  interactableItems: {fileID: 0}
+  interactables: {fileID: 0}
   textInput: {fileID: 0}
   inputActions:
   - {fileID: 11400000, guid: 4b1e69c06f12c0e49856eabc9759d18f, type: 2}
   - {fileID: 11400000, guid: e5eb9c46f42246040849399d3b6bd19d, type: 2}
   - {fileID: 11400000, guid: c89e06bc80ee9dd4294bc458a32886a6, type: 2}
   - {fileID: 11400000, guid: 21e95f9eddc3c5b49bf5be3371dd7080, type: 2}
+  - {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
+  - {fileID: 11400000, guid: 174504033c0cf5e4db60ba4066339f90, type: 2}
   displayingText: 0
   lettersPerSecond: 30
 --- !u!4 &787061009
