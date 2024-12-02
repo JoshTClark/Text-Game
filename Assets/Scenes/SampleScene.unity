@@ -1551,8 +1551,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: {fileID: 1429584510}
-  interactionDataInRoom: []
-  characterDataInRoom: []
   navigation: {fileID: 0}
   interactables: {fileID: 0}
   textInput: {fileID: 0}
@@ -1564,7 +1562,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
   - {fileID: 11400000, guid: 174504033c0cf5e4db60ba4066339f90, type: 2}
   displayingText: 0
-  lettersPerSecond: 30
+  lettersPerSecond: 45
 --- !u!4 &787061009
 Transform:
   m_ObjectHideFlags: 0
@@ -1593,6 +1591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsInRoom: []
+  charactersInRoom: []
 --- !u!850595691 &802536205
 LightingSettings:
   m_ObjectHideFlags: 0

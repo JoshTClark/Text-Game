@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using static Room;
 using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -21,7 +22,6 @@ public class GameController : MonoBehaviour
     public InputAction[] inputActions;
 
     private List<TextActionLog> actionLog = new List<TextActionLog>();
-    private List<string> finalActionLog = new List<string>();
 
     private GameData gameData;
 
@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
     public int lettersPerSecond;
     private float letterTimer = 0.0f;
     private int actionLogIndex = 0;
+    private int visibleCharacters = 0;
     private int textIndex = 0;
 
 
@@ -55,27 +56,22 @@ public class GameController : MonoBehaviour
         {
             textInput.CanPlayerType(false);
             letterTimer += Time.deltaTime;
+            string logAsText = string.Join("\n", actionLog);
+            displayText.text = logAsText;
             if (letterTimer >= 1.0f / lettersPerSecond)
             {
                 if (actionLogIndex < actionLog.Count)
                 {
                     TextActionLog currentLog = actionLog[actionLogIndex];
-                    if (actionLogIndex >= finalActionLog.Count)
-                    {
-                        finalActionLog.Add("");
-                    }
                     if (currentLog.showInstant)
                     {
-                        finalActionLog[actionLogIndex] = currentLog.text;
                         actionLogIndex++;
+                        visibleCharacters += currentLog.text.Length;
                         textIndex = 0;
                     }
                     else if (textIndex < currentLog.text.Length)
                     {
-                        //Debug.Log(currentLog.text[textIndex]);
-                        //Debug.Log(actionLogIndex);
-                        //Debug.Log(textIndex);
-                        finalActionLog[actionLogIndex] += currentLog.text[textIndex];
+                        visibleCharacters++;
                         textIndex++;
                     }
                     else
@@ -83,18 +79,17 @@ public class GameController : MonoBehaviour
                         actionLogIndex++;
                         textIndex = 0;
                     }
+
+                    letterTimer = 0.0f;
                 }
                 else
                 {
-                    textInput.CanPlayerType(true);
                     displayingText = false;
+                    textInput.CanPlayerType(true);
+                    textIndex = 0;
                 }
-                letterTimer = 0.0f;
             }
-
-            string logAsText = string.Join("\n", finalActionLog);
-
-            displayText.text = logAsText;
+            displayText.maxVisibleCharacters = visibleCharacters + logAsText.Length - string.Join("", actionLog).Length; ;
         }
     }
 
@@ -237,5 +232,10 @@ public class GameController : MonoBehaviour
     {
         public bool showInstant;
         public string text;
+
+        public override string ToString()
+        {
+            return text;
+        }
     }
 }
