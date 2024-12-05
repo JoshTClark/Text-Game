@@ -5,15 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="TextGame/InputActions/Go")]
 public class Go : TextInputAction
 {
-    public override void RespondToInput(GameController controller, string[] seperatedInputWords)
+    public override void RespondToInput(GameController controller, string[] separatedInputWords)
     {
-        if (seperatedInputWords.Length > 1)
+        if (separatedInputWords.Length > 1)
         {
-            controller.navigation.AttemptToChangeRooms(seperatedInputWords[1]);
+            controller.navigation.AttemptToChangeRooms(separatedInputWords[1]);
         }
         else 
         {
-            controller.LogStringWithReturn(seperatedInputWords[0] + " where?");
+            controller.LogStringWithReturn(separatedInputWords[0] + " where?");
         }
     }
 }

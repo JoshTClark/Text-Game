@@ -22,7 +22,7 @@ MonoBehaviour:
     - commons
     valueRoom: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
   interactableObjectsInRoom: []
-  possibleCharactersInRoom:
+  possibleCharacterInteractionsInRoom:
   - characterDataName: Levi
     characters:
     - {fileID: 11400000, guid: 62b601c234806f84db9c474566d663a5, type: 2}
@@ -39,5 +39,5 @@ MonoBehaviour:
         no way we could reverse our speed after atmospheric entry. I don\u2019t think
         we\u2019ll be taking the Henrietta anywhere else soon either. This storm
         isn\u2019t letting up at all. I wonder if there\u2019s another way to get
-        to Gamma from here.\u201D\r"
+        to Gamma from here.\u201D"
       actionResponse: {fileID: 0}

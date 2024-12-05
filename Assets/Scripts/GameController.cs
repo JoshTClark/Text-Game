@@ -7,6 +7,8 @@ using static Room;
 using UnityEngine.InputSystem;
 using UnityEditor.Timeline.Actions;
 using UnityEngine.Rendering.VirtualTexturing;
+using static Interactables;
+using UnityEngine.WSA;
 
 public class GameController : MonoBehaviour
 {
@@ -122,11 +124,11 @@ public class GameController : MonoBehaviour
         {
             InteractableObjectRoomData interactableObjectData = currentRoom.interactableObjectsInRoom[i];
 
-            string replaceText = "<" + interactableObjectData.replaceValue + ">";
+            string replaceText = "<" + interactableObjectData.objectDataName + ">";
 
             if (finalDescription.Contains(replaceText))
             {
-                if (!interactables.IsObjectInInventory(currentRoom, interactableObjectData.interactableObject))
+                if (interactables.IsObjectActivated(currentRoom, interactableObjectData.objectDataName))
                 {
                     finalDescription = finalDescription.Replace(replaceText, interactableObjectData.roomDescription);
                 }
@@ -137,15 +139,15 @@ public class GameController : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < currentRoom.possibleCharactersInRoom.Count; i++)
+        for (int i = 0; i < currentRoom.possibleCharacterInteractionsInRoom.Count; i++)
         {
-            CharacterRoomData characterRoomData = currentRoom.possibleCharactersInRoom[i];
+            CharacterInteractionData characterRoomData = currentRoom.possibleCharacterInteractionsInRoom[i];
 
             string replaceText = "<" + characterRoomData.characterDataName + ">";
 
             if (finalDescription.Contains(replaceText))
             {
-                if (interactables.IsCharacterActivated(characterRoomData.characterDataName))
+                if (interactables.IsCharacterActivated(currentRoom, characterRoomData.characterDataName))
                 {
                     finalDescription = finalDescription.Replace(replaceText, characterRoomData.roomDescription);
                 }
@@ -181,10 +183,11 @@ public class GameController : MonoBehaviour
 
     public void PrepareInteractables(Room currentRoom)
     {
+        interactables.SetUpInteractablesInRoom(currentRoom);
+
         for (int i = 0; i < currentRoom.interactableObjectsInRoom.Count; i++)
         {
             InteractableObject interactableInRoom = currentRoom.interactableObjectsInRoom[i].interactableObject;
-            interactables.AddObjectToRoomObjectList(currentRoom, interactableInRoom);
 
             for (int j = 0; j < interactableInRoom.interactions.Count; j++)
             {
@@ -193,20 +196,25 @@ public class GameController : MonoBehaviour
                 {
                     if (interaction.inputAction.keywords.Contains("examine"))
                     {
-                        interactables.examineDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
+                        InteractionDataHolder holder = new InteractionDataHolder();
+                        holder.interactionTextResponse = interaction.textResponse;
+                        holder.actionResponse = interaction.actionResponse;
+                        interactables.examineDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
                     }
                     if (interaction.inputAction.keywords.Contains("take"))
                     {
-                        interactables.takeDictionary.Add(interactableInRoom.keyWords[k].ToLower(), interaction.textResponse);
+                        InteractionDataHolder holder = new InteractionDataHolder();
+                        holder.interactionTextResponse = interaction.textResponse;
+                        holder.actionResponse = interaction.actionResponse;
+                        interactables.takeDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
                     }
                 }
             }
         }
 
-        for (int i = 0; i < currentRoom.possibleCharactersInRoom.Count; i++)
+        for (int i = 0; i < currentRoom.possibleCharacterInteractionsInRoom.Count; i++)
         {
-            CharacterRoomData characterInRoom = currentRoom.possibleCharactersInRoom[i];
-            interactables.AddCharacterToRoomCharacterList(currentRoom, characterInRoom);
+            CharacterInteractionData characterInRoom = currentRoom.possibleCharacterInteractionsInRoom[i];
 
             for (int j = 0; j < characterInRoom.interactions.Count; j++)
             {
@@ -219,24 +227,27 @@ public class GameController : MonoBehaviour
                 totalKeywords.AddRange(characterInRoom.extraKeywords);
                 for (int k = 0; k < totalKeywords.Count; k++)
                 {
-                    if (interaction.inputAction.keywords.Contains("talk") && interactables.IsCharacterActivated(characterInRoom.characterDataName))
+                    if (interaction.inputAction.keywords.Contains("talk") && interactables.IsCharacterActivated(currentRoom, characterInRoom.characterDataName))
                     {
-                        interactables.talkDictionary.Add(totalKeywords[k].ToLower(), interaction.textResponse);
+                        InteractionDataHolder holder = new InteractionDataHolder();
+                        holder.interactionTextResponse = interaction.textResponse;
+                        holder.actionResponse = interaction.actionResponse;
+                        interactables.talkDictionary.Add(totalKeywords[k].ToLower(), holder);
                     }
                 }
             }
         }
     }
 
-    public string TestVerbDictionaryWithNoun(Dictionary<string, string> verbDictionary, string verb, string noun)
+    public bool TestVerbDictionaryWithNoun(Dictionary<string, InteractionDataHolder> verbDictionary, string verb, string noun)
     {
         noun = noun.ToLower();
         if (verbDictionary.ContainsKey(noun))
         {
-            return verbDictionary[noun];
+            return true;
         }
 
-        return "You can't " + verb + " " + noun;
+        return false;
     }
 
     public void OnSkip()

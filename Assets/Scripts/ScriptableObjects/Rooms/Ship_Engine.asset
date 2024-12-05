@@ -28,3 +28,4 @@ MonoBehaviour:
     - door
     valueRoom: {fileID: 11400000, guid: fb097c0b9fb4d7640b4ebbc4c1811b28, type: 2}
   interactableObjectsInRoom: []
+  possibleCharacterInteractionsInRoom: []

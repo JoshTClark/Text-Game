@@ -10,12 +10,12 @@ public class Room : ScriptableObject
 
     public List<Exit> exits = new List<Exit>();
     public List<InteractableObjectRoomData> interactableObjectsInRoom;
-    public List<CharacterRoomData> possibleCharactersInRoom;
+    public List<CharacterInteractionData> possibleCharacterInteractionsInRoom;
 
     [System.Serializable]
     public class InteractableObjectRoomData 
     {
-        public string replaceValue = "string to replace";
+        public string objectDataName = "";
         public InteractableObject interactableObject;
         public bool activatedAtStart = false;
         [TextArea]
@@ -23,7 +23,7 @@ public class Room : ScriptableObject
     }
 
     [System.Serializable]
-    public class CharacterRoomData
+    public class CharacterInteractionData
     {
         public string characterDataName = "Name used to activate/deactivate character";
         public List<Character> characters;
