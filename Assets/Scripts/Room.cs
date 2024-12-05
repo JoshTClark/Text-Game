@@ -17,6 +17,7 @@ public class Room : ScriptableObject
     {
         public string replaceValue = "string to replace";
         public InteractableObject interactableObject;
+        public bool activatedAtStart = false;
         [TextArea]
         public string roomDescription = "Description in room";
     }
@@ -25,7 +26,8 @@ public class Room : ScriptableObject
     public class CharacterRoomData
     {
         public string characterDataName = "Name used to activate/deactivate character";
-        public Character character;
+        public List<Character> characters;
+        public List<string> extraKeywords;
         public bool activatedAtStart;
         [TextArea]
         public string roomDescription = "Description in room";

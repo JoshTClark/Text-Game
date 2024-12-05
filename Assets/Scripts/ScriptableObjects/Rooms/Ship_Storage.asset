@@ -15,8 +15,7 @@ MonoBehaviour:
   description: "The Henrietta\u2019s storage room is full of crates and boxes. Luckily
     it looks like nothing was damaged during the landing. In the back of the room
     is a ladder leading down to the engine room. At the other end is the door to
-    the commons. One box looks particularly interesting. Branded on the side of it
-    reads \u201CAquila Deep Mining Co. - Multi Purpose Terrain Vehicle\u201D."
+    the commons. <box>"
   exits:
   - keyStrings:
     - engine
@@ -28,4 +27,9 @@ MonoBehaviour:
     - commons
     - door
     valueRoom: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
-  interactableObjectsInRoom: []
+  interactableObjectsInRoom:
+  - replaceValue: box
+    interactableObject: {fileID: 11400000, guid: 9867a70b95a3a76498254d1f11d0bacc, type: 2}
+    roomDescription: "One box looks particularly interesting. Branded on the side
+      of it reads \u201CAquila Deep Mining Co. - Multi Purpose Terrain Vehicle\u201D."
+  possibleCharactersInRoom: []

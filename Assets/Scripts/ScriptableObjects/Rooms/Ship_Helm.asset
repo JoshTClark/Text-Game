@@ -24,7 +24,9 @@ MonoBehaviour:
   interactableObjectsInRoom: []
   possibleCharactersInRoom:
   - characterDataName: Levi
-    character: {fileID: 11400000, guid: 62b601c234806f84db9c474566d663a5, type: 2}
+    characters:
+    - {fileID: 11400000, guid: 62b601c234806f84db9c474566d663a5, type: 2}
+    extraKeywords: []
     activatedAtStart: 1
     roomDescription: "Levi is reading system scans off of the monitor in the pilot\u2019s
       seat."

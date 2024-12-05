@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Interaction
 {
-    public InputAction inputAction;
+    public TextInputAction inputAction;
     [TextArea(1, 100)]
     public string textResponse;
     public ActionResponse actionResponse;

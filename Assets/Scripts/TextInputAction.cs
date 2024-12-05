@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class InputAction : ScriptableObject
+public abstract class TextInputAction : ScriptableObject
 {
     public List<string> keywords;
 

@@ -4,8 +4,9 @@ using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using static Room;
-using Unity.VisualScripting;
-using UnityEngine.AI;
+using UnityEngine.InputSystem;
+using UnityEditor.Timeline.Actions;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class GameController : MonoBehaviour
 {
@@ -19,15 +20,18 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public TextInput textInput;
 
-    public InputAction[] inputActions;
+    public TextInputAction[] inputActions;
 
     private List<TextActionLog> actionLog = new List<TextActionLog>();
 
     private GameData gameData;
 
+    private PlayerInput playerInput;
+
     // Text animation stuff
     [HideInInspector]
     public bool displayingText = false;
+    private bool skipText = false;
     public int lettersPerSecond;
     private float letterTimer = 0.0f;
     private int actionLogIndex = 0;
@@ -40,6 +44,7 @@ public class GameController : MonoBehaviour
         textInput = GetComponent<TextInput>();
         navigation = GetComponent<RoomNavigation>();
         interactables = GetComponent<Interactables>();
+        playerInput = GetComponent<PlayerInput>();
 
         gameData = new GameData();
     }
@@ -47,13 +52,14 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         DisplayRoomText();
-        DisplayLoggedText();
+        DisplayLoggedText(); 
     }
 
     private void Update()
     {
         if (displayingText)
         {
+            playerInput.currentActionMap.FindAction("Skip").Enable();
             textInput.CanPlayerType(false);
             letterTimer += Time.deltaTime;
             string logAsText = string.Join("\n", actionLog);
@@ -63,10 +69,10 @@ public class GameController : MonoBehaviour
                 if (actionLogIndex < actionLog.Count)
                 {
                     TextActionLog currentLog = actionLog[actionLogIndex];
-                    if (currentLog.showInstant)
+                    if (currentLog.showInstant || skipText)
                     {
                         actionLogIndex++;
-                        visibleCharacters += currentLog.text.Length;
+                        visibleCharacters += currentLog.text.Length - textIndex;
                         textIndex = 0;
                     }
                     else if (textIndex < currentLog.text.Length)
@@ -87,9 +93,14 @@ public class GameController : MonoBehaviour
                     displayingText = false;
                     textInput.CanPlayerType(true);
                     textIndex = 0;
+                    playerInput.currentActionMap.FindAction("Skip").Disable();
                 }
             }
             displayText.maxVisibleCharacters = visibleCharacters + logAsText.Length - string.Join("", actionLog).Length; ;
+        }
+        else
+        {
+            skipText = false;
         }
     }
 
@@ -200,11 +211,17 @@ public class GameController : MonoBehaviour
             for (int j = 0; j < characterInRoom.interactions.Count; j++)
             {
                 Interaction interaction = characterInRoom.interactions[j];
-                for (int k = 0; k < characterInRoom.character.keyWords.Count; k++)
+                List<string> totalKeywords = new List<string>();
+                for (int k = 0; k < characterInRoom.characters.Count; k++) 
+                {
+                    totalKeywords.AddRange(characterInRoom.characters[k].keyWords);
+                }
+                totalKeywords.AddRange(characterInRoom.extraKeywords);
+                for (int k = 0; k < totalKeywords.Count; k++)
                 {
                     if (interaction.inputAction.keywords.Contains("talk") && interactables.IsCharacterActivated(characterInRoom.characterDataName))
                     {
-                        interactables.talkDictionary.Add(characterInRoom.character.keyWords[k].ToLower(), interaction.textResponse);
+                        interactables.talkDictionary.Add(totalKeywords[k].ToLower(), interaction.textResponse);
                     }
                 }
             }
@@ -220,6 +237,15 @@ public class GameController : MonoBehaviour
         }
 
         return "You can't " + verb + " " + noun;
+    }
+
+    public void OnSkip()
+    {
+        if (displayingText)
+        {
+            Debug.Log("Skipping Text");
+            skipText = true;
+        }
     }
 
     public void ClearCollectionsForNewRoom()

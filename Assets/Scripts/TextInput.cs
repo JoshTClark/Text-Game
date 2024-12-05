@@ -38,7 +38,7 @@ public class TextInput : MonoBehaviour
 
         for (int i = 0; i < controller.inputActions.Length; i++)
         {
-            InputAction action = controller.inputActions[i];
+            TextInputAction action = controller.inputActions[i];
             foreach (string s in action.keywords)
             {
                 if (s == seperatedInputWords[0])

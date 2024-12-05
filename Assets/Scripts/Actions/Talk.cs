@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "TextGame/InputActions/Talk")]
-public class Talk : InputAction
+public class Talk : TextInputAction
 {
     public override void RespondToInput(GameController controller, string[] seperatedInputWords)
     {

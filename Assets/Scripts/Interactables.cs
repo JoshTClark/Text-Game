@@ -19,6 +19,7 @@ public class Interactables : MonoBehaviour
 
     private List<InteractableObject> objectsInInventory = new List<InteractableObject>();
     private Dictionary<string, ActionResponse> useDictionary = new Dictionary<string, ActionResponse>();
+    private Dictionary<string, bool> objectActivatedDictionary = new Dictionary<string, bool>();
     private Dictionary<string, bool> characterActivatedDictionary = new Dictionary<string, bool>();
     private GameController controller;
 

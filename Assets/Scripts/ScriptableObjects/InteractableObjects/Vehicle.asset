@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c757fe72afebd640be9cce780be13b1, type: 3}
-  m_Name: Skull
+  m_Name: Vehicle
   m_EditorClassIdentifier: 
-  objectName: Skull
+  objectName: Vehicle
   keyWords:
-  - skull
-  - bone
+  - box
+  - vehicle
+  - crate
   interactions:
   - inputAction: {fileID: 11400000, guid: e5eb9c46f42246040849399d3b6bd19d, type: 2}
-    textResponse: The skull is blackened and charred.
-    actionResponse: {fileID: 0}
-  - inputAction: {fileID: 11400000, guid: c89e06bc80ee9dd4294bc458a32886a6, type: 2}
-    textResponse: You take the skull.
+    textResponse: A vehicle like this should be perfect for traversing the planet.
+      However it seems to be bolted closed tightly. You recall Allie inspecting the
+      cargo before takeoff. Maybe she knows more about it.
     actionResponse: {fileID: 0}
