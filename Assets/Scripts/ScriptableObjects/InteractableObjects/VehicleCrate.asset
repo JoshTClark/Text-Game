@@ -23,3 +23,6 @@ MonoBehaviour:
       However it seems to be bolted closed tightly. You recall Allie inspecting the
       cargo before takeoff. Maybe she knows more about it.
     actionResponse: {fileID: 11400000, guid: 5c65cf24e66e3294d978674db4d40ea6, type: 2}
+  - inputAction: {fileID: 11400000, guid: de1912dada2271e429023ff1ae1a882e, type: 2}
+    textResponse: The box is bolted shut and can not be opened.
+    actionResponse: {fileID: 0}

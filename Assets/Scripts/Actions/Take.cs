@@ -2,31 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Interactables;
+using static TextInput;
 
 [CreateAssetMenu(menuName = "TextGame/InputActions/Take")]
 public class Take : TextInputAction
 {
-    public override void RespondToInput(GameController controller, string[] separatedInputWords)
+    public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        Dictionary<string, InteractionDataHolder> takeDictionary = controller.interactables.Take(separatedInputWords);
-
-        if (separatedInputWords.Length > 1)
+        if (wordData.isValid)
         {
-            string verb = separatedInputWords[0];
-            string noun = separatedInputWords[1];
-            if (controller.TestVerbDictionaryWithNoun(takeDictionary, verb, noun))
-            {
-                InteractionDataHolder data = takeDictionary[noun];
-                if (data.actionResponse != null)
-                {
-                    data.actionResponse.DoActionResponse(controller);
-                }
+            string verb = wordData.verb;
+            string noun = wordData.nounFirstWord;
 
-                controller.LogStringWithReturn(data.interactionTextResponse);
+            if (controller.TestVerbDictionaryWithNoun(controller.interactables.takeDictionary, wordData))
+            {
+                noun = wordData.fullNoun;
+                if (controller.interactables.Take(noun))
+                {
+                    InteractionDataHolder data = controller.interactables.takeDictionary[noun];
+                    if (data.actionResponse != null)
+                    {
+                        data.actionResponse.DoActionResponse(controller);
+                    }
+
+                    controller.LogStringWithReturn(data.interactionTextResponse);
+                }
+                else 
+                {
+                    controller.LogStringWithReturn("You can't " + verb + " the " + noun);
+                }
             }
             else
             {
-                controller.LogStringWithReturn("You can't " + verb + " " + noun);
+                controller.LogStringWithReturn("There is no " + noun + " to " + verb);
             }
         }
     }

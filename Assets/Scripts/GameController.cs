@@ -1,14 +1,8 @@
 using UnityEngine;
 using TMPro;
-using System;
-using UnityEngine.UI;
 using System.Collections.Generic;
-using static Room;
 using UnityEngine.InputSystem;
-using UnityEditor.Timeline.Actions;
-using UnityEngine.Rendering.VirtualTexturing;
-using static Interactables;
-using UnityEngine.WSA;
+using UnityEngine.Windows;
 
 public class GameController : MonoBehaviour
 {
@@ -23,6 +17,8 @@ public class GameController : MonoBehaviour
     public TextInput textInput;
 
     public TextInputAction[] inputActions;
+
+    public string[] ignoredWords;
 
     private List<TextActionLog> actionLog = new List<TextActionLog>();
 
@@ -208,6 +204,20 @@ public class GameController : MonoBehaviour
                         holder.actionResponse = interaction.actionResponse;
                         interactables.takeDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
                     }
+                    if (interaction.inputAction.keywords.Contains("open"))
+                    {
+                        InteractionDataHolder holder = new InteractionDataHolder();
+                        holder.interactionTextResponse = interaction.textResponse;
+                        holder.actionResponse = interaction.actionResponse;
+                        interactables.openDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
+                    }
+                    if (interaction.inputAction.keywords.Contains("use"))
+                    {
+                        InteractionDataHolder holder = new InteractionDataHolder();
+                        holder.interactionTextResponse = interaction.textResponse;
+                        holder.actionResponse = interaction.actionResponse;
+                        interactables.useDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
+                    }
                 }
             }
         }
@@ -239,12 +249,49 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public bool TestVerbDictionaryWithNoun(Dictionary<string, InteractionDataHolder> verbDictionary, string verb, string noun)
+    public bool TestVerbDictionaryWithNoun(Dictionary<string, InteractionDataHolder> verbDictionary, OrganizedInputWordsData wordData)
     {
-        noun = noun.ToLower();
-        if (verbDictionary.ContainsKey(noun))
+        List<string> keyList = new List<string>(verbDictionary.Keys);
+        string nounFirstWord = wordData.nounFirstWord.ToLower();
+        if (keyList.Contains(nounFirstWord))
         {
+            wordData.fullNoun = wordData.nounFirstWord;
             return true;
+        }
+        else 
+        {
+            foreach (string key in keyList) 
+            {
+                char[] delimiterCharacters = { ' ' };
+                List<string> seperatedKey = new List<string>(key.Split(delimiterCharacters));
+                Debug.Log(key);
+                if (seperatedKey.Count <= 1) 
+                {
+                    continue;
+                }
+                if (seperatedKey[0] == nounFirstWord)
+                {
+                    Debug.Log("checking key for further words");
+                    int keyIndex = 0;
+                    for (int i = wordData.nounStartIndex; i < wordData.seperatedInput.Length; i++) 
+                    {
+                        Debug.Log("checking input-" + wordData.seperatedInput[i] + " and key-" + seperatedKey[keyIndex]);
+                        if (wordData.seperatedInput[i] == seperatedKey[keyIndex])
+                        {
+                            keyIndex++;
+                            if (keyIndex >= seperatedKey.Count)
+                            {
+                                wordData.fullNoun = key;
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         return false;
@@ -263,16 +310,5 @@ public class GameController : MonoBehaviour
     {
         navigation.ClearExits();
         interactables.ClearCollections();
-    }
-
-    private class TextActionLog
-    {
-        public bool showInstant;
-        public string text;
-
-        public override string ToString()
-        {
-            return text;
-        }
     }
 }

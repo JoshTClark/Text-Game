@@ -18,11 +18,15 @@ MonoBehaviour:
     personal belongings so you leave them be. However you notice Joanne\u2019s door
     is wide open. It looks as if someone had opened all her boxes and drawers and
     thrown everything on the ground. Small bits of machinery, screws, metal rods,
-    and the like are sprinkled around the room. Of everything you notice a handheld
-    plasma welder on the ground. "
+    and the like are sprinkled around the room. <welder>"
   exits:
   - keyStrings:
     - door
     - commons
     valueRoom: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
-  interactableObjectsInRoom: []
+  interactableObjectsInRoom:
+  - objectDataName: welder
+    interactableObject: {fileID: 11400000, guid: 4586d8c0f7752044cbabb67bb7d16354, type: 2}
+    activatedAtStart: 1
+    roomDescription: 'Of everything you notice a handheld plasma welder on the ground. '
+  possibleCharacterInteractionsInRoom: []

@@ -11,26 +11,4 @@ public class Room : ScriptableObject
     public List<Exit> exits = new List<Exit>();
     public List<InteractableObjectRoomData> interactableObjectsInRoom;
     public List<CharacterInteractionData> possibleCharacterInteractionsInRoom;
-
-    [System.Serializable]
-    public class InteractableObjectRoomData 
-    {
-        public string objectDataName = "";
-        public InteractableObject interactableObject;
-        public bool activatedAtStart = false;
-        [TextArea]
-        public string roomDescription = "Description in room";
-    }
-
-    [System.Serializable]
-    public class CharacterInteractionData
-    {
-        public string characterDataName = "Name used to activate/deactivate character";
-        public List<Character> characters;
-        public List<string> extraKeywords;
-        public bool activatedAtStart;
-        [TextArea]
-        public string roomDescription = "Description in room";
-        public List<Interaction> interactions;
-    }
 }

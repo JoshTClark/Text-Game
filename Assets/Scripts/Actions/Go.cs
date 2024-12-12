@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TextInput;
 
-[CreateAssetMenu(menuName ="TextGame/InputActions/Go")]
+[CreateAssetMenu(menuName = "TextGame/InputActions/Go")]
 public class Go : TextInputAction
 {
-    public override void RespondToInput(GameController controller, string[] separatedInputWords)
+    public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        if (separatedInputWords.Length > 1)
+        if (wordData.isValid)
         {
-            controller.navigation.AttemptToChangeRooms(separatedInputWords[1]);
+            string noun = wordData.nounFirstWord;
+            controller.navigation.AttemptToChangeRooms(noun);
         }
-        else 
+        else
         {
-            controller.LogStringWithReturn(separatedInputWords[0] + " where?");
+            controller.LogStringWithReturn("where?");
         }
     }
 }

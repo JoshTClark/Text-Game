@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Interactables;
+using static TextInput;
 
 [CreateAssetMenu(menuName = "TextGame/InputActions/Use")]
 public class Use : TextInputAction
 {
-    public override void RespondToInput(GameController controller, string[] separatedInputWords)
+    public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        if (separatedInputWords.Length > 1)
+        if (wordData.isValid)
         {
-            string verb = separatedInputWords[0];
-            string noun = separatedInputWords[1];
+            string verb = wordData.verb;
+            string noun = wordData.nounFirstWord;
 
             List<InteractableObject> objectsInInventory = controller.interactables.objectsInInventory;
 
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.useDictionary, verb, noun))
+            if (controller.TestVerbDictionaryWithNoun(controller.interactables.useDictionary, wordData))
             {
+                noun = wordData.fullNoun;
                 InteractionDataHolder data = controller.interactables.useDictionary[noun];
 
                 if (data.actionResponse != null)

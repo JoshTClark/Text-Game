@@ -1562,6 +1562,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21e95f9eddc3c5b49bf5be3371dd7080, type: 2}
   - {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
   - {fileID: 11400000, guid: 174504033c0cf5e4db60ba4066339f90, type: 2}
+  - {fileID: 11400000, guid: de1912dada2271e429023ff1ae1a882e, type: 2}
+  ignoredWords:
+  - the
+  - to
+  - a
   displayingText: 0
   lettersPerSecond: 45
 --- !u!4 &787061009
@@ -1592,7 +1597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsInRoom: []
-  charactersInRoom: []
+  characterInteractionsInRoom: []
+  objectsInInventory: []
 --- !u!114 &787061011
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -13,6 +14,7 @@ public class Interactables : MonoBehaviour
     public Dictionary<string, InteractionDataHolder> takeDictionary = new Dictionary<string, InteractionDataHolder>();
     public Dictionary<string, InteractionDataHolder> talkDictionary = new Dictionary<string, InteractionDataHolder>();
     public Dictionary<string, InteractionDataHolder> useDictionary = new Dictionary<string, InteractionDataHolder>();
+    public Dictionary<string, InteractionDataHolder> openDictionary = new Dictionary<string, InteractionDataHolder>();
 
     [HideInInspector]
     public List<InteractableObject> objectsInRoom = new List<InteractableObject>();
@@ -67,6 +69,8 @@ public class Interactables : MonoBehaviour
                 characterInteractionsInRoom.Add(i);
             }
         }
+
+        AddIventoryToUseDictionary();
     }
 
     public bool IsObjectInInventory(InteractableObject interactableObject)
@@ -89,7 +93,7 @@ public class Interactables : MonoBehaviour
         return roomDictionary[room.name].isObjectActive(objectName);
     }
 
-    public void AddActionResponsesToUseDictionary()
+    public void AddIventoryToUseDictionary()
     {
         for (int i = 0; i < objectsInInventory.Count; i++)
         {
@@ -141,27 +145,29 @@ public class Interactables : MonoBehaviour
         examineDictionary.Clear();
         takeDictionary.Clear();
         talkDictionary.Clear();
+        useDictionary.Clear();
+        openDictionary.Clear();
         objectsInRoom.Clear();
         characterInteractionsInRoom.Clear();
     }
 
-    public Dictionary<string, InteractionDataHolder> Take(string[] seperatedInputWords)
+    public bool Take(string noun)
     {
-        string noun = seperatedInputWords[1].ToLower();
+        noun = noun.ToLower();
 
         for (int i = 0; i < objectsInRoom.Count; i++)
         {
             if (objectsInRoom[i].keyWords.Contains(noun))
             {
                 objectsInInventory.Add(objectsInRoom[i]);
-                AddActionResponsesToUseDictionary();
                 objectsInRoom.Remove(objectsInRoom[i]);
-                return takeDictionary;
+                ClearCollections();
+                controller.PrepareInteractables(controller.navigation.currentRoom);
+                return true;
             }
         }
 
-        controller.LogStringWithReturn("There is no " + noun + " to take.");
-        return null;
+        return false;
     }
 
     public void UseItem(string[] separatedInputWords)
@@ -190,60 +196,5 @@ public class Interactables : MonoBehaviour
         }
         controller.LogStringWithReturn("There is no " + nounToUse + " in your inventory to use.");
         return;
-    }
-
-    public class RoomInteractablesState 
-    {
-        private Dictionary<string, bool> objectActivatedDictionary = new Dictionary<string, bool>();
-        private Dictionary<string, bool> characterInteractionActivatedDictionary = new Dictionary<string, bool>();
-
-        public RoomInteractablesState(){}
-
-        public void AddObject(string objectName, bool isActive) 
-        {
-            if (objectActivatedDictionary.ContainsKey(objectName.ToLower()))
-            {
-                return;
-            }
-
-
-            objectActivatedDictionary.Add(objectName.ToLower(), isActive);
-        }
-
-        public void AddCharacter(string characterName, bool isActive)
-        {
-            if (characterInteractionActivatedDictionary.ContainsKey(characterName.ToLower()))
-            {
-                return;
-            }
-
-            characterInteractionActivatedDictionary.Add(characterName.ToLower(), isActive);
-        }
-
-        public bool isObjectActive(string objectName)
-        {
-            return objectActivatedDictionary[objectName.ToLower()];
-        }
-
-        public bool isCharacterActive(string characterName)
-        {
-            return characterInteractionActivatedDictionary[characterName.ToLower()];
-        }
-
-        public void SetObjectActive(string objectName, bool isObjectActive) 
-        {
-            objectActivatedDictionary[objectName.ToLower()] = isObjectActive;
-        }
-
-        public void SetCharacterActive(string characterName, bool isCharacterActive)
-        {
-            characterInteractionActivatedDictionary[characterName.ToLower()] = isCharacterActive;
-        }
-    }
-
-    public class InteractionDataHolder
-    {
-        public string interactionTextResponse;
-        public ActionResponse actionResponse;
     }
 }

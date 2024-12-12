@@ -33,17 +33,16 @@ public class TextInput : MonoBehaviour
 
         controller.LogStringWithReturn("   >" + userInput, true);
 
-        char[] delimiterCharacters = { ' ' };
-        string[] seperatedInputWords = userInput.Split(delimiterCharacters);
+        OrganizedInputWordsData data = new OrganizedInputWordsData(userInput, controller);
 
         for (int i = 0; i < controller.inputActions.Length; i++)
         {
             TextInputAction action = controller.inputActions[i];
             foreach (string s in action.keywords)
             {
-                if (s == seperatedInputWords[0])
+                if (s == data.verb)
                 {
-                    action.RespondToInput(controller, seperatedInputWords);
+                    action.RespondToInput(controller, data);
                     break;
                 }
             }
@@ -64,7 +63,7 @@ public class TextInput : MonoBehaviour
         {
             inputField.ActivateInputField();
         }
-        else 
+        else
         {
             inputField.DeactivateInputField();
         }

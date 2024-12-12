@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Interactables;
+using static TextInput;
 
 [CreateAssetMenu(menuName = "TextGame/InputActions/Examine")]
 public class Examine : TextInputAction
 {
-    public override void RespondToInput(GameController controller, string[] separatedInputWords)
+    public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        if (separatedInputWords.Length > 1)
+        if (wordData.isValid)
         {
-            string verb = separatedInputWords[0];
-            string noun = separatedInputWords[1];
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.examineDictionary, verb, noun))
+            string verb = wordData.verb;
+            string noun = wordData.nounFirstWord;
+            if (controller.TestVerbDictionaryWithNoun(controller.interactables.examineDictionary, wordData))
             {
+                noun = wordData.fullNoun;
                 InteractionDataHolder data = controller.interactables.examineDictionary[noun];
                 if (data.actionResponse != null) 
                 {

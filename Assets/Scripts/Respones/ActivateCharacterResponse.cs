@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,21 +6,23 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "TextGame/ActionResponse/Activate Character")]
 public class ActivateCharacterResponse : ActionResponse
 {
-    public Room room;
-    public List<string> deactivateCharacters = new List<string>();
-    public List<string> activateCharacters = new List<string>();
+    [SerializeField]
+    private List<CharacterActivationData> characters = new List<CharacterActivationData>();
     public override bool DoActionResponse(GameController controller)
     {
-        foreach (string deactivate in deactivateCharacters) 
+        foreach (CharacterActivationData c in characters) 
         {
-            controller.interactables.SetCharacterActive(deactivate, false, room);
-        }
-
-        foreach (string activate in activateCharacters)
-        {
-            controller.interactables.SetCharacterActive(activate, true, room);
+            controller.interactables.SetCharacterActive(c.characterName, c.setActive, c.room);
         }
 
         return true;
+    }
+
+    [Serializable]
+    private class CharacterActivationData
+    {
+        public string characterName = "";
+        public bool setActive = false;
+        public Room room;
     }
 }

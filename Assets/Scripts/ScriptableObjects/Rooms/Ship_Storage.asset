@@ -15,7 +15,7 @@ MonoBehaviour:
   description: "The Henrietta\u2019s storage room is full of crates and boxes. Luckily
     it looks like nothing was damaged during the landing. In the back of the room
     is a ladder leading down to the engine room. At the other end is the door to
-    the commons. <box>"
+    the commons. <box> <Allie1>"
   exits:
   - keyStrings:
     - engine
@@ -33,4 +33,16 @@ MonoBehaviour:
     activatedAtStart: 1
     roomDescription: "One box looks particularly interesting. Branded on the side
       of it reads \u201CAquila Deep Mining Co. - Multi Purpose Terrain Vehicle\u201D."
-  possibleCharactersInRoom: []
+  possibleCharacterInteractionsInRoom:
+  - characterDataName: Allie1
+    characters:
+    - {fileID: 11400000, guid: ce7bcdd73100133409aceea6c7ce544a, type: 2}
+    extraKeywords: []
+    activatedAtStart: 0
+    roomDescription: Allie is inspecting the box.
+    interactions:
+    - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
+      textResponse: "\u201CSeems to be magnetically bolted. We would need a specialized
+        tool to open it but if we can pop open the crate I\u2019ll get the vehicle
+        outside for us.\u201D"
+      actionResponse: {fileID: 0}

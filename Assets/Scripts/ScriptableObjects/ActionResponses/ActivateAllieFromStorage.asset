@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1706a3291baebc04a95aa2240b10ef1c, type: 3}
   m_Name: ActivateAllieFromStorage
   m_EditorClassIdentifier: 
-  room: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
-  deactivateCharacters:
-  - TJ_Allie
-  activateCharacters:
-  - TJ
-  - Allie
+  characters:
+  - characterName: Allie
+    setActive: 1
+    room: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
+  - characterName: TJ
+    setActive: 1
+    room: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
+  - characterName: TJ_Allie
+    setActive: 0
+    room: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}

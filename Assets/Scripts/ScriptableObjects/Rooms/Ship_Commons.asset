@@ -23,6 +23,7 @@ MonoBehaviour:
   - keyStrings:
     - quarters
     - right
+    - living quarters
     valueRoom: {fileID: 11400000, guid: 74e18febb6ccd834e8255c967a79710a, type: 2}
   - keyStrings:
     - storage
@@ -77,10 +78,11 @@ MonoBehaviour:
     roomDescription: Allie is helping out TJ with cleaning.
     interactions:
     - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
-      textResponse: "Allie: \u201CThat is a new model multi purpose vehicle. Perfect
-        for surveying and traversing a planet like this. It can work as a boat when
-        it enters water.\u201D\r\nYou ask if she thinks it could help us make it
-        to Gamma.\r\nAllie: \u201CI\u2019m sure it could. Isn\u2019t it against protocol
-        to do something like this? I guess this isn\u2019t the best situation though,
-        so I\u2019m sure nobody will mind. I\u2019ll meet you in the storage room.\u201D\r"
+      textResponse: "You ask Allie about the vehicle crate in storage.\r\nAllie:
+        \u201CThat is a new model multi purpose vehicle. Perfect for surveying and
+        traversing a planet like this. It can work as a boat when it enters water.\u201D\r\nYou
+        ask if she thinks it could help us make it to Gamma.\r\nAllie: \u201CI\u2019m
+        sure it could. Isn\u2019t it against protocol to do something like this?
+        I guess this isn\u2019t the best situation though, so I\u2019m sure nobody
+        will mind. I\u2019ll meet you in the storage room.\u201D\r\r"
       actionResponse: {fileID: 0}
