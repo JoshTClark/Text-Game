@@ -211,7 +211,7 @@ public class GameController : MonoBehaviour
                         holder.actionResponse = interaction.actionResponse;
                         interactables.openDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
                     }
-                    if (interaction.inputAction.keywords.Contains("use"))
+                    if (interaction.inputAction.keywords.Contains("use") && !interactables.useDictionary.ContainsKey(interactableInRoom.keyWords[k].ToLower()))
                     {
                         InteractionDataHolder holder = new InteractionDataHolder();
                         holder.interactionTextResponse = interaction.textResponse;

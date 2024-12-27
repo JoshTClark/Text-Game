@@ -21,3 +21,6 @@ MonoBehaviour:
   - inputAction: {fileID: 11400000, guid: c89e06bc80ee9dd4294bc458a32886a6, type: 2}
     textResponse: You pick up the plasma welder and put it in your back pocket.
     actionResponse: {fileID: 0}
+  - inputAction: {fileID: 11400000, guid: 174504033c0cf5e4db60ba4066339f90, type: 2}
+    textResponse: 
+    actionResponse: {fileID: 11400000, guid: a74c23a950761c14cb72bb9101b5f0f3, type: 2}

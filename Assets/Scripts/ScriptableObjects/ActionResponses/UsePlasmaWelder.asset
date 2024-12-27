@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd0215ad36df4f14495000800a58c3e5, type: 3}
-  m_Name: Examine
+  m_Script: {fileID: 11500000, guid: e43e5994f8b040d438a40403350dd31f, type: 3}
+  m_Name: UsePlasmaWelder
   m_EditorClassIdentifier: 
-  keywords:
-  - examine
-  - look
-  - inspect

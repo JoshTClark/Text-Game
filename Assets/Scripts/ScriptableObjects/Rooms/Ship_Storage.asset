@@ -42,7 +42,7 @@ MonoBehaviour:
     roomDescription: Allie is inspecting the box.
     interactions:
     - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
-      textResponse: "\u201CSeems to be magnetically bolted. We would need a specialized
-        tool to open it but if we can pop open the crate I\u2019ll get the vehicle
-        outside for us.\u201D"
+      textResponse: "Allie: \u201CSeems to be magnetically bolted. We would need
+        a specialized tool to open it but if we can pop open the crate I\u2019ll
+        get the vehicle outside for us.\u201D"
       actionResponse: {fileID: 0}

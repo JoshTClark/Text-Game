@@ -31,17 +31,20 @@ public class Use : TextInputAction
                     }
                 }
             }
-
-            for (int i = 0; i < objectsInInventory.Count; i++)
+            else
             {
-                if (objectsInInventory[i].keyWords.Contains(noun))
-                {
-                    controller.LogStringWithReturn("You can't use the " + noun + ".");
-                    return;
-                }
-            }
 
-            controller.LogStringWithReturn("There is no " + noun + " to use.");
+                for (int i = 0; i < objectsInInventory.Count; i++)
+                {
+                    if (objectsInInventory[i].keyWords.Contains(noun))
+                    {
+                        controller.LogStringWithReturn("You can't use the " + noun + ".");
+                        return;
+                    }
+                }
+
+                controller.LogStringWithReturn("There is no " + noun + " to use.");
+            }
         }
     }
 }
