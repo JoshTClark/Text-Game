@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class ActionResponse : ScriptableObject
 {
-    public abstract bool DoActionResponse(GameController controller);
+    public abstract bool DoActionResponse(GameController controller, OrganizedInputWordsData wordData = null);
 }

@@ -9,7 +9,7 @@ public class Use : TextInputAction
 {
     public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        if (wordData.isValid)
+        if (wordData.hasNoun)
         {
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
@@ -23,7 +23,7 @@ public class Use : TextInputAction
 
                 if (data.actionResponse != null)
                 {
-                    bool actionResult = data.actionResponse.DoActionResponse(controller);
+                    bool actionResult = data.actionResponse.DoActionResponse(controller, wordData);
                     if (!actionResult)
                     {
                         controller.LogStringWithReturn("Nothing happens.");

@@ -8,7 +8,7 @@ public class Go : TextInputAction
 {
     public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        if (wordData.isValid)
+        if (wordData.hasNoun)
         {
             string noun = wordData.nounFirstWord;
             controller.navigation.AttemptToChangeRooms(noun);

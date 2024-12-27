@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1bfb80c259c704fa6abcab72b6c573, type: 3}
+  m_Name: GivePlasmaWelder
+  m_EditorClassIdentifier: 
+  giveToJoanneText: "You hand the plasma welder to Joanne.\nJoanne: \u201CThanks
+    Maria you\u2019re a lifesaver! This should only take a minute then we\u2019ll
+    have all systems back in action.\u201D\nWithin a few minutes Joanne has fixed
+    what she needed to.\nJoanne: \"I'll see you in the control room. I'm going to
+    check what else needs to be fixed.\""

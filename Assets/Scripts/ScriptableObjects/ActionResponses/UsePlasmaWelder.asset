@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43e5994f8b040d438a40403350dd31f, type: 3}
   m_Name: UsePlasmaWelder
   m_EditorClassIdentifier: 
+  specialBoxText: Using a plasma welder you don't know how to use to open a box with
+    something you want inside isn't the best idea.
+  redundantText: You can't think of anything worthwhile to weld in here.

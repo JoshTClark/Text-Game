@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Ship_Engine
   m_EditorClassIdentifier: 
   description: "The hum of the ship\u2019s miniature fusion reactor fills the engine
-    room\u2026 alongside the murmurs and hushed vulgarity of Joanne as she hurries
-    back and forth between screens, valves, open panels. She doesn\u2019t even notice
-    you. On the ground lies a magnetic crowbar next to a pile of some of her tools.
-    There is a ladder leading up to storage and a door leading to the control room.\r"
+    room<Joanne>.<crowbar> There is a ladder leading up to storage and a door leading
+    to the control room.\r"
   exits:
   - keyStrings:
     - storage
@@ -27,5 +25,26 @@ MonoBehaviour:
     - control
     - door
     valueRoom: {fileID: 11400000, guid: fb097c0b9fb4d7640b4ebbc4c1811b28, type: 2}
-  interactableObjectsInRoom: []
-  possibleCharacterInteractionsInRoom: []
+  interactableObjectsInRoom:
+  - objectDataName: crowbar
+    interactableObject: {fileID: 11400000, guid: a85a27bf0d789aa42baa367cf9714c95, type: 2}
+    activatedAtStart: 1
+    roomDescription: ' On the ground lies a magnetic crowbar next to a pile of some
+      of her tools.'
+  possibleCharacterInteractionsInRoom:
+  - characterDataName: Joanne
+    characters:
+    - {fileID: 11400000, guid: 4a1e6b83e708a5647b7cea625f295d30, type: 2}
+    extraKeywords: []
+    activatedAtStart: 1
+    roomDescription: "\u2026 alongside the murmurs and hushed vulgarity of Joanne
+      as she hurries back and forth between screens, valves, open panels. She doesn\u2019t
+      even notice you"
+    interactions:
+    - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
+      textResponse: "Joanne jumps as you bring her out of her world to talk.\nJoanne:
+        \u201CSorry about that Maria. I\u2019m just a little on edge. Nothing seems
+        to be seriously broken though. Some systems are down but it seems it\u2019s
+        a superficial issue caused by the shaking during landing. Should have everything
+        back up and running in no time. Just need to remember where I put that welder\u2026\u201D"
+      actionResponse: {fileID: 0}

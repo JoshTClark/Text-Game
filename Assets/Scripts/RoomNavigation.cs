@@ -15,7 +15,7 @@ public class RoomNavigation : MonoBehaviour
         gameController = GetComponent<GameController>();
     }
 
-    public void UnpackExits() 
+    public void UnpackExits()
     {
         for (int i = 0; i < currentRoom.exits.Count; i++)
         {
@@ -33,7 +33,7 @@ public class RoomNavigation : MonoBehaviour
             currentRoom = exitDictionary[input];
             gameController.DisplayRoomText();
         }
-        else 
+        else
         {
             gameController.LogStringWithReturn("You can not go " + input);
         }

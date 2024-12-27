@@ -15,6 +15,7 @@ public class Interactables : MonoBehaviour
     public Dictionary<string, InteractionDataHolder> talkDictionary = new Dictionary<string, InteractionDataHolder>();
     public Dictionary<string, InteractionDataHolder> useDictionary = new Dictionary<string, InteractionDataHolder>();
     public Dictionary<string, InteractionDataHolder> openDictionary = new Dictionary<string, InteractionDataHolder>();
+    public Dictionary<string, InteractionDataHolder> giveDictionary = new Dictionary<string, InteractionDataHolder>();
 
     [HideInInspector]
     public List<InteractableObject> objectsInRoom = new List<InteractableObject>();
@@ -35,19 +36,19 @@ public class Interactables : MonoBehaviour
 
     public void SetUpInteractablesInRoom(Room currentRoom)
     {
-        if (!roomDictionary.ContainsKey(currentRoom.name)) 
+        if (!roomDictionary.ContainsKey(currentRoom.name))
         {
             RoomInteractablesState roomState = new RoomInteractablesState();
             foreach (InteractableObjectRoomData i in currentRoom.interactableObjectsInRoom)
             {
                 bool isObjectActive = i.activatedAtStart && !IsObjectInInventory(i.interactableObject);
-                roomState.AddObject(i.objectDataName, isObjectActive);
+                roomState.AddObject(i.objectDataName.ToLower(), isObjectActive);
             }
 
             foreach (CharacterInteractionData i in currentRoom.possibleCharacterInteractionsInRoom)
             {
                 bool isCharacterActive = i.activatedAtStart;
-                roomState.AddCharacter(i.characterDataName, isCharacterActive);
+                roomState.AddCharacter(i.characterDataName.ToLower(), isCharacterActive);
             }
 
             roomDictionary.Add(currentRoom.name, roomState);
@@ -57,7 +58,7 @@ public class Interactables : MonoBehaviour
 
         foreach (InteractableObjectRoomData i in currentRoom.interactableObjectsInRoom)
         {
-            if (currentState.isObjectActive(i.objectDataName)) 
+            if (currentState.isObjectActive(i.objectDataName))
             {
                 objectsInRoom.Add(i.interactableObject);
             }
@@ -70,7 +71,7 @@ public class Interactables : MonoBehaviour
             }
         }
 
-        AddIventoryToUseDictionary();
+        AddIventoryToDictionaries();
     }
 
     public bool IsObjectInInventory(InteractableObject interactableObject)
@@ -93,7 +94,7 @@ public class Interactables : MonoBehaviour
         return roomDictionary[room.name].isObjectActive(objectName);
     }
 
-    public void AddIventoryToUseDictionary()
+    public void AddIventoryToDictionaries()
     {
         for (int i = 0; i < objectsInInventory.Count; i++)
         {
@@ -108,12 +109,19 @@ public class Interactables : MonoBehaviour
 
                 for (int k = 0; k < interactableObjectInIventory.keyWords.Count; k++)
                 {
-                    if (!useDictionary.ContainsKey(interactableObjectInIventory.keyWords[k]))
+                    if (interaction.inputAction.keywords.Contains("use") && !useDictionary.ContainsKey(interactableObjectInIventory.keyWords[k]))
                     {
                         InteractionDataHolder holder = new InteractionDataHolder();
                         holder.interactionTextResponse = interaction.textResponse;
                         holder.actionResponse = interaction.actionResponse;
-                        useDictionary.Add(interactableObjectInIventory.keyWords[k], holder);
+                        useDictionary.Add(interactableObjectInIventory.keyWords[k].ToLower(), holder);
+                    }
+                    else if (interaction.inputAction.keywords.Contains("give") && !giveDictionary.ContainsKey(interactableObjectInIventory.keyWords[k]))
+                    {
+                        InteractionDataHolder holder = new InteractionDataHolder();
+                        holder.interactionTextResponse = interaction.textResponse;
+                        holder.actionResponse = interaction.actionResponse;
+                        giveDictionary.Add(interactableObjectInIventory.keyWords[k].ToLower(), holder);
                     }
                 }
             }
@@ -132,11 +140,18 @@ public class Interactables : MonoBehaviour
 
     public void DisplayInventory()
     {
-        controller.LogStringWithReturn("You look inside your bagpack, inside you have: ");
-
-        for (int i = 0; i < objectsInInventory.Count; i++)
+        if (objectsInInventory.Count > 0)
         {
-            controller.LogStringWithReturn(objectsInInventory[i].objectName);
+            controller.LogStringWithReturn("You look inside your suit's bag, inside you have: ");
+
+            for (int i = 0; i < objectsInInventory.Count; i++)
+            {
+                controller.LogStringWithReturn(objectsInInventory[i].objectName);
+            }
+        }
+        else
+        {
+            controller.LogStringWithReturn("Your suit's bag is empty.");
         }
     }
 
@@ -147,11 +162,12 @@ public class Interactables : MonoBehaviour
         talkDictionary.Clear();
         useDictionary.Clear();
         openDictionary.Clear();
+        giveDictionary.Clear();
         objectsInRoom.Clear();
         characterInteractionsInRoom.Clear();
     }
 
-    public bool Take(string noun)
+    public void Take(string noun)
     {
         noun = noun.ToLower();
 
@@ -160,9 +176,35 @@ public class Interactables : MonoBehaviour
             if (objectsInRoom[i].keyWords.Contains(noun))
             {
                 objectsInInventory.Add(objectsInRoom[i]);
-                objectsInRoom.Remove(objectsInRoom[i]);
+                SetObjectActive(noun, false, controller.navigation.currentRoom);
                 ClearCollections();
                 controller.PrepareInteractables(controller.navigation.currentRoom);
+                return;
+            }
+        }
+    }
+
+    public void RemoveFromInventory(string noun)
+    {
+        for (int i = 0; i < objectsInInventory.Count; i++)
+        {
+            if (objectsInInventory[i].keyWords.Contains(noun))
+            {
+                objectsInInventory.RemoveAt(i);
+                ClearCollections();
+                controller.PrepareInteractables(controller.navigation.currentRoom);
+            }
+        }
+    }
+
+    public bool CanTake(string noun)
+    {
+        noun = noun.ToLower();
+
+        for (int i = 0; i < objectsInRoom.Count; i++)
+        {
+            if (objectsInRoom[i].keyWords.Contains(noun))
+            {
                 return true;
             }
         }

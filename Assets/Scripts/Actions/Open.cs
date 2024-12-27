@@ -7,7 +7,7 @@ public class Open : TextInputAction
 {
     public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        if (wordData.isValid)
+        if (wordData.hasNoun)
         {
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
@@ -17,7 +17,7 @@ public class Open : TextInputAction
                 InteractionDataHolder data = controller.interactables.openDictionary[noun];
                 if (data.actionResponse != null)
                 {
-                    data.actionResponse.DoActionResponse(controller);
+                    data.actionResponse.DoActionResponse(controller, wordData);
                     Debug.Log("did action response");
                 }
 

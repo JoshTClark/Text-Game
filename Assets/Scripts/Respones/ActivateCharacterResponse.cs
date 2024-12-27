@@ -8,7 +8,7 @@ public class ActivateCharacterResponse : ActionResponse
 {
     [SerializeField]
     private List<CharacterActivationData> characters = new List<CharacterActivationData>();
-    public override bool DoActionResponse(GameController controller)
+    public override bool DoActionResponse(GameController controller, OrganizedInputWordsData wordData)
     {
         foreach (CharacterActivationData c in characters) 
         {

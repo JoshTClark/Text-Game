@@ -9,7 +9,7 @@ public class Take : TextInputAction
 {
     public override void RespondToInput(GameController controller, OrganizedInputWordsData wordData)
     {
-        if (wordData.isValid)
+        if (wordData.hasNoun)
         {
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
@@ -17,12 +17,19 @@ public class Take : TextInputAction
             if (controller.TestVerbDictionaryWithNoun(controller.interactables.takeDictionary, wordData))
             {
                 noun = wordData.fullNoun;
-                if (controller.interactables.Take(noun))
+                if (controller.interactables.CanTake(noun))
                 {
                     InteractionDataHolder data = controller.interactables.takeDictionary[noun];
                     if (data.actionResponse != null)
                     {
-                        data.actionResponse.DoActionResponse(controller);
+                        if (data.actionResponse.DoActionResponse(controller, wordData))
+                        {
+                            controller.interactables.Take(noun);
+                        }
+                    }
+                    else 
+                    {
+                        controller.interactables.Take(noun);
                     }
 
                     controller.LogStringWithReturn(data.interactionTextResponse);

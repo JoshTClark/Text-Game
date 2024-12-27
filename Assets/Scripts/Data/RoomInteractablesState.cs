@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RoomInteractablesState
@@ -32,12 +33,28 @@ public class RoomInteractablesState
 
     public bool isObjectActive(string objectName)
     {
-        return objectActivatedDictionary[objectName.ToLower()];
+        if (objectActivatedDictionary.ContainsKey(objectName.ToLower()))
+        {
+            return objectActivatedDictionary[objectName.ToLower()];
+        }
+
+        Debug.Log("Couldn't find an object with name -" + objectName.ToLower() + "-");
+        foreach (string key in objectActivatedDictionary.Keys)
+        {
+            Debug.Log(key);
+        }
+        return false;
     }
 
     public bool isCharacterActive(string characterName)
     {
-        return characterInteractionActivatedDictionary[characterName.ToLower()];
+        if (characterInteractionActivatedDictionary.ContainsKey(characterName.ToLower()))
+        {
+            return characterInteractionActivatedDictionary[characterName.ToLower()];
+        }
+
+        Debug.Log("Couldn't find an character with name -" + characterName.ToLower() + "-");
+        return false;
     }
 
     public void SetObjectActive(string objectName, bool isObjectActive)

@@ -159,11 +159,21 @@ public class GameController : MonoBehaviour
 
     public void LogStringWithReturn(string stringToAdd, bool showInstant = false)
     {
+        if(stringToAdd == "") 
+        {
+            return;
+        }
+
         LogString(stringToAdd + "\n", showInstant);
     }
 
     public void LogString(string stringToAdd, bool showInstant = false)
     {
+        if (stringToAdd == "")
+        {
+            return;
+        }
+
         TextActionLog log = new TextActionLog();
         log.text = stringToAdd;
         log.showInstant = showInstant;

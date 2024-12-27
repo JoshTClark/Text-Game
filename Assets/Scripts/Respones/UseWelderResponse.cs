@@ -5,17 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "TextGame/ActionResponse/Use Plasma Welder")]
 public class UseWelderResponse : ActionResponse
 {
-    public override bool DoActionResponse(GameController controller)
+    [TextArea(1, 100)]
+    public string specialBoxText;
+    [TextArea(1, 100)]
+    public string redundantText;
+    public override bool DoActionResponse(GameController controller, OrganizedInputWordsData wordData)
     {
         RoomNavigation nav = controller.navigation;
-        Interactables inter= controller.interactables;
-        if (nav.currentRoom.name == "Ship_Storage" && inter.IsObjectActivated(nav.currentRoom, "VehicleCrate"))
+        Interactables interactables = controller.interactables;
+        if (nav.currentRoom.name == "Ship_Storage" && interactables.IsObjectActivated(nav.currentRoom, "box"))
         {
-            controller.LogStringWithReturn("Using a plasma welder you don't know how to use to open a box with something you want inside isn't the best idea.");
+            controller.LogStringWithReturn(specialBoxText);
         }
         else
         {
-            controller.LogStringWithReturn("You can't think of anything worthwhile to weld in here.");
+            controller.LogStringWithReturn(redundantText);
         }
         return true;
     }
