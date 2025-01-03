@@ -59,11 +59,25 @@ public class RoomInteractablesState
 
     public void SetObjectActive(string objectName, bool isObjectActive)
     {
-        objectActivatedDictionary[objectName.ToLower()] = isObjectActive;
+        if (objectActivatedDictionary.ContainsKey(objectName.ToLower()))
+        {
+            objectActivatedDictionary[objectName.ToLower()] = isObjectActive;
+        }
+        else
+        {
+            Debug.Log("Cannot find object -" + objectName + "-");
+        }
     }
 
     public void SetCharacterActive(string characterName, bool isCharacterActive)
     {
-        characterInteractionActivatedDictionary[characterName.ToLower()] = isCharacterActive;
+        if (characterInteractionActivatedDictionary.ContainsKey(characterName.ToLower()))
+        {
+            characterInteractionActivatedDictionary[characterName.ToLower()] = isCharacterActive;
+        }
+        else
+        {
+            Debug.Log("Cannot find character -" + characterName + "-");
+        }
     }
 }

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: "You are in the commons of the IPRV Henrietta. This room connects
     to the living quarters to the right, storage at one end, and the helm at the
-    other. There is also a ladder down to the control room. Allie and TJ are standing
-    around a table discussing the recent events.\r\n\r\n<TJ_Allie><TJ><Allie>\r"
+    other. There is also a ladder down to the control room. <TJ_Allie><TJ><Allie>\r"
   exits:
   - keyStrings:
     - helm
@@ -42,12 +41,13 @@ MonoBehaviour:
     extraKeywords:
     - crew
     activatedAtStart: 1
-    roomDescription: "Allie: \u201CCargo was secure and nothing looks damaged at
-      least.\u201D\r\nTJ: \u201CWell that\u2019s a relief. Didn\u2019t want to end
-      up stranded in the sticks for nothing.\u201D\r\nAllie: \u201CYeah though with
-      comms down we might be here longer than we\u2019d want.\u201D\r\nTJ: \u201CI\u2019m
-      sure it\u2019ll turn out fine. Joanne is fixing everything up right now.\u201D\r\nAllie:
-      \u201CYeah, hopefully\u2026\u201D\r\n"
+    roomDescription: "Allie and TJ are standing around a table discussing the recent
+      events.\n\nAllie: \u201CCargo was secure and nothing looks damaged at least.\u201D\r\nTJ:
+      \u201CWell that\u2019s a relief. Didn\u2019t want to end up stranded in the
+      sticks for nothing.\u201D\r\nAllie: \u201CYeah though with comms down we might
+      be here longer than we\u2019d want.\u201D\r\nTJ: \u201CI\u2019m sure it\u2019ll
+      turn out fine. Joanne is fixing everything up right now.\u201D\r\nAllie: \u201CYeah,
+      hopefully\u2026\u201D\r\n"
     interactions:
     - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
       textResponse: "TJ: \u201CYou feeling alright Maria? That was a rough landing.

@@ -130,12 +130,30 @@ public class Interactables : MonoBehaviour
 
     public void SetObjectActive(string objectName, bool isObjectActive, Room room)
     {
-        roomDictionary[room.name].SetObjectActive(objectName, isObjectActive);
+        if (roomDictionary.ContainsKey(room.name))
+        {
+            roomDictionary[room.name].SetObjectActive(objectName, isObjectActive);
+            ClearCollections();
+            controller.PrepareInteractables(controller.navigation.currentRoom);
+        }
+        else
+        {
+            Debug.Log("Cannot find room -" + room.name + "-");
+        }
     }
 
     public void SetCharacterActive(string characterName, bool isCharacterActive, Room room)
     {
-        roomDictionary[room.name].SetCharacterActive(characterName, isCharacterActive);
+        if (roomDictionary.ContainsKey(room.name))
+        {
+            roomDictionary[room.name].SetCharacterActive(characterName, isCharacterActive);
+            ClearCollections();
+            controller.PrepareInteractables(controller.navigation.currentRoom);
+        }
+        else
+        {
+            Debug.Log("Cannot find room -" + room.name + "-");
+        }
     }
 
     public void DisplayInventory()
@@ -177,8 +195,6 @@ public class Interactables : MonoBehaviour
             {
                 objectsInInventory.Add(objectsInRoom[i]);
                 SetObjectActive(noun, false, controller.navigation.currentRoom);
-                ClearCollections();
-                controller.PrepareInteractables(controller.navigation.currentRoom);
                 return;
             }
         }
