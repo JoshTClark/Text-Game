@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Interactables;
+using static InteractableController;
 using static TextInput;
 
 [CreateAssetMenu(menuName = "TextGame/InputActions/Use")]
@@ -14,36 +14,15 @@ public class Use : TextInputAction
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
 
-            List<InteractableObject> objectsInInventory = controller.interactables.objectsInInventory;
-
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.useDictionary, wordData))
+            if (controller.TestInputText(wordData))
             {
                 noun = wordData.fullNoun;
-                InteractionDataHolder data = controller.interactables.useDictionary[noun];
-
-                if (data.actionResponse != null)
-                {
-                    bool actionResult = data.actionResponse.DoActionResponse(controller, wordData);
-                    if (!actionResult)
-                    {
-                        controller.LogStringWithReturn("Nothing happens.");
-                        return;
-                    }
-                }
+                Interactable interactable = controller.interactables.currentInteractableDictionary[noun];
+                interactable.Use(new InteractionData(controller, wordData));
             }
             else
             {
-
-                for (int i = 0; i < objectsInInventory.Count; i++)
-                {
-                    if (objectsInInventory[i].keyWords.Contains(noun))
-                    {
-                        controller.LogStringWithReturn("You can't use the " + noun + ".");
-                        return;
-                    }
-                }
-
-                controller.LogStringWithReturn("There is no " + noun + " to use.");
+                controller.LogStringWithReturn("There is no " + noun + " to " + verb + ".");
             }
         }
     }

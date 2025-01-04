@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Interactables;
+using static InteractableController;
 using static TextInput;
 
 [CreateAssetMenu(menuName = "TextGame/InputActions/Examine")]
@@ -13,17 +13,11 @@ public class Examine : TextInputAction
         {
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.examineDictionary, wordData))
+            if (controller.TestInputText(wordData))
             {
                 noun = wordData.fullNoun;
-                InteractionDataHolder data = controller.interactables.examineDictionary[noun];
-                if (data.actionResponse != null) 
-                {
-                    data.actionResponse.DoActionResponse(controller, wordData);
-                    Debug.Log("did action response");
-                }
-
-                controller.LogStringWithReturn(data.interactionTextResponse);
+                Interactable interactable = controller.interactables.currentInteractableDictionary[noun];
+                interactable.Examine(new InteractionData(controller, wordData));
             }
             else
             {

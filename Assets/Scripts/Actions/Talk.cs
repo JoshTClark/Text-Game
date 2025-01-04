@@ -11,16 +11,11 @@ public class Talk : TextInputAction
         {
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.talkDictionary, wordData))
+            if (controller.TestInputText(wordData))
             {
                 noun = wordData.fullNoun;
-                InteractionDataHolder data = controller.interactables.talkDictionary[noun];
-                if (data.actionResponse != null)
-                {
-                    data.actionResponse.DoActionResponse(controller, wordData);
-                }
-
-                controller.LogStringWithReturn(data.interactionTextResponse);
+                Interactable interactable = controller.interactables.currentInteractableDictionary[noun];
+                interactable.Talk(new InteractionData(controller, wordData));
             }
             else
             {

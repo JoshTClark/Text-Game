@@ -11,16 +11,11 @@ public class Give : TextInputAction
         {
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.giveDictionary, wordData))
+            if (controller.TestInputText(wordData))
             {
                 noun = wordData.fullNoun;
-                InteractionDataHolder data = controller.interactables.giveDictionary[noun];
-                if (data.actionResponse != null)
-                {
-                    data.actionResponse.DoActionResponse(controller, wordData);
-                }
-
-                controller.LogStringWithReturn(data.interactionTextResponse);
+                Interactable interactable = controller.interactables.currentInteractableDictionary[noun];
+                interactable.Give(new InteractionData(controller, wordData));
             }
             else
             {

@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public RoomNavigation navigation;
     [HideInInspector]
-    public Interactables interactables;
+    public InteractableController interactables;
     [HideInInspector]
     public TextInput textInput;
 
@@ -25,6 +25,11 @@ public class GameController : MonoBehaviour
     private GameData gameData;
 
     private PlayerInput playerInput;
+
+    private TextDataManager textDataManager;
+
+    [SerializeField]
+    private TextAsset textFile;
 
     // Text animation stuff
     [HideInInspector]
@@ -41,10 +46,11 @@ public class GameController : MonoBehaviour
     {
         textInput = GetComponent<TextInput>();
         navigation = GetComponent<RoomNavigation>();
-        interactables = GetComponent<Interactables>();
+        interactables = GetComponent<InteractableController>();
         playerInput = GetComponent<PlayerInput>();
 
         gameData = new GameData();
+        textDataManager = new TextDataManager(textFile);
     }
 
     private void Start()
@@ -102,6 +108,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public string GetText(string key) 
+    {
+        return key;
+    }
+
     public void DisplayLoggedText()
     {
         displayingText = true;
@@ -120,32 +131,13 @@ public class GameController : MonoBehaviour
         {
             InteractableObjectRoomData interactableObjectData = currentRoom.interactableObjectsInRoom[i];
 
-            string replaceText = "<" + interactableObjectData.objectDataName + ">";
+            string replaceText = "<" + interactableObjectData.interactableObject.objectName + ">";
 
             if (finalDescription.Contains(replaceText))
             {
-                if (interactables.IsObjectActivated(currentRoom, interactableObjectData.objectDataName))
+                if (interactables.IsObjectActivated(currentRoom, interactableObjectData.interactableObject.objectName))
                 {
                     finalDescription = finalDescription.Replace(replaceText, interactableObjectData.roomDescription);
-                }
-                else
-                {
-                    finalDescription = finalDescription.Replace(replaceText, "");
-                }
-            }
-        }
-
-        for (int i = 0; i < currentRoom.possibleCharacterInteractionsInRoom.Count; i++)
-        {
-            CharacterInteractionData characterRoomData = currentRoom.possibleCharacterInteractionsInRoom[i];
-
-            string replaceText = "<" + characterRoomData.characterDataName + ">";
-
-            if (finalDescription.Contains(replaceText))
-            {
-                if (interactables.IsCharacterActivated(currentRoom, characterRoomData.characterDataName))
-                {
-                    finalDescription = finalDescription.Replace(replaceText, characterRoomData.roomDescription);
                 }
                 else
                 {
@@ -189,79 +181,13 @@ public class GameController : MonoBehaviour
 
     public void PrepareInteractables(Room currentRoom)
     {
+        interactables.ClearCollections();
         interactables.SetUpInteractablesInRoom(currentRoom);
-
-        for (int i = 0; i < currentRoom.interactableObjectsInRoom.Count; i++)
-        {
-            InteractableObject interactableInRoom = currentRoom.interactableObjectsInRoom[i].interactableObject;
-
-            for (int j = 0; j < interactableInRoom.interactions.Count; j++)
-            {
-                Interaction interaction = interactableInRoom.interactions[j];
-                for (int k = 0; k < interactableInRoom.keyWords.Count; k++)
-                {
-                    if (interaction.inputAction.keywords.Contains("examine"))
-                    {
-                        InteractionDataHolder holder = new InteractionDataHolder();
-                        holder.interactionTextResponse = interaction.textResponse;
-                        holder.actionResponse = interaction.actionResponse;
-                        interactables.examineDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
-                    }
-                    if (interaction.inputAction.keywords.Contains("take"))
-                    {
-                        InteractionDataHolder holder = new InteractionDataHolder();
-                        holder.interactionTextResponse = interaction.textResponse;
-                        holder.actionResponse = interaction.actionResponse;
-                        interactables.takeDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
-                    }
-                    if (interaction.inputAction.keywords.Contains("open"))
-                    {
-                        InteractionDataHolder holder = new InteractionDataHolder();
-                        holder.interactionTextResponse = interaction.textResponse;
-                        holder.actionResponse = interaction.actionResponse;
-                        interactables.openDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
-                    }
-                    if (interaction.inputAction.keywords.Contains("use") && !interactables.useDictionary.ContainsKey(interactableInRoom.keyWords[k].ToLower()))
-                    {
-                        InteractionDataHolder holder = new InteractionDataHolder();
-                        holder.interactionTextResponse = interaction.textResponse;
-                        holder.actionResponse = interaction.actionResponse;
-                        interactables.useDictionary.Add(interactableInRoom.keyWords[k].ToLower(), holder);
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < currentRoom.possibleCharacterInteractionsInRoom.Count; i++)
-        {
-            CharacterInteractionData characterInRoom = currentRoom.possibleCharacterInteractionsInRoom[i];
-
-            for (int j = 0; j < characterInRoom.interactions.Count; j++)
-            {
-                Interaction interaction = characterInRoom.interactions[j];
-                List<string> totalKeywords = new List<string>();
-                for (int k = 0; k < characterInRoom.characters.Count; k++) 
-                {
-                    totalKeywords.AddRange(characterInRoom.characters[k].keyWords);
-                }
-                totalKeywords.AddRange(characterInRoom.extraKeywords);
-                for (int k = 0; k < totalKeywords.Count; k++)
-                {
-                    if (interaction.inputAction.keywords.Contains("talk") && interactables.IsCharacterActivated(currentRoom, characterInRoom.characterDataName))
-                    {
-                        InteractionDataHolder holder = new InteractionDataHolder();
-                        holder.interactionTextResponse = interaction.textResponse;
-                        holder.actionResponse = interaction.actionResponse;
-                        interactables.talkDictionary.Add(totalKeywords[k].ToLower(), holder);
-                    }
-                }
-            }
-        }
     }
 
-    public bool TestVerbDictionaryWithNoun(Dictionary<string, InteractionDataHolder> verbDictionary, OrganizedInputWordsData wordData)
+    public bool TestInputText(OrganizedInputWordsData wordData)
     {
-        List<string> keyList = new List<string>(verbDictionary.Keys);
+        List<string> keyList = new List<string>(interactables.currentInteractableDictionary.Keys);
         string nounFirstWord = wordData.nounFirstWord.ToLower();
         if (keyList.Contains(nounFirstWord))
         {

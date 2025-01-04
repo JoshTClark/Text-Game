@@ -11,17 +11,11 @@ public class Open : TextInputAction
         {
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.openDictionary, wordData))
+            if (controller.TestInputText(wordData))
             {
                 noun = wordData.fullNoun;
-                InteractionDataHolder data = controller.interactables.openDictionary[noun];
-                if (data.actionResponse != null)
-                {
-                    data.actionResponse.DoActionResponse(controller, wordData);
-                    Debug.Log("did action response");
-                }
-
-                controller.LogStringWithReturn(data.interactionTextResponse);
+                Interactable interactable = controller.interactables.currentInteractableDictionary[noun];
+                interactable.Open(new InteractionData(controller, wordData));
             }
             else
             {

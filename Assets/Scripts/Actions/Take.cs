@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Interactables;
+using static InteractableController;
 using static TextInput;
 
 [CreateAssetMenu(menuName = "TextGame/InputActions/Take")]
@@ -14,30 +14,11 @@ public class Take : TextInputAction
             string verb = wordData.verb;
             string noun = wordData.nounFirstWord;
 
-            if (controller.TestVerbDictionaryWithNoun(controller.interactables.takeDictionary, wordData))
+            if (controller.TestInputText(wordData))
             {
                 noun = wordData.fullNoun;
-                if (controller.interactables.CanTake(noun))
-                {
-                    InteractionDataHolder data = controller.interactables.takeDictionary[noun];
-                    if (data.actionResponse != null)
-                    {
-                        if (data.actionResponse.DoActionResponse(controller, wordData))
-                        {
-                            controller.interactables.Take(noun);
-                        }
-                    }
-                    else 
-                    {
-                        controller.interactables.Take(noun);
-                    }
-
-                    controller.LogStringWithReturn(data.interactionTextResponse);
-                }
-                else 
-                {
-                    controller.LogStringWithReturn("You can't " + verb + " the " + noun);
-                }
+                Interactable interactable = controller.interactables.currentInteractableDictionary[noun];
+                interactable.Take(new InteractionData(controller, wordData));
             }
             else
             {

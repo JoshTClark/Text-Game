@@ -10,5 +10,4 @@ public class Room : ScriptableObject
 
     public List<Exit> exits = new List<Exit>();
     public List<InteractableObjectRoomData> interactableObjectsInRoom;
-    public List<CharacterInteractionData> possibleCharacterInteractionsInRoom;
 }
