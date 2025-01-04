@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083780a4aeac2b54ea31a4045ba3666a, type: 3}
   m_Name: Ship_Commons
   m_EditorClassIdentifier: 
-  description: "You are in the commons of the IPRV Henrietta. This room connects
-    to the living quarters to the right, storage at one end, and the helm at the
-    other. There is also a ladder down to the control room. <TJ_Allie><TJ><Allie>\r"
+  descriptionKey: Commons_Desc
   exits:
   - keyStrings:
     - helm
@@ -32,57 +30,13 @@ MonoBehaviour:
     - ladder
     - down
     valueRoom: {fileID: 11400000, guid: fb097c0b9fb4d7640b4ebbc4c1811b28, type: 2}
-  interactableObjectsInRoom: []
-  possibleCharacterInteractionsInRoom:
-  - characterDataName: TJ_Allie
-    characters:
-    - {fileID: 11400000, guid: e8b67e7018ee0a24b9cc972fe912d355, type: 2}
-    - {fileID: 11400000, guid: ce7bcdd73100133409aceea6c7ce544a, type: 2}
-    extraKeywords:
-    - crew
+  interactableObjectsInRoom:
+  - interactableObject: {fileID: 0}
     activatedAtStart: 1
-    roomDescription: "Allie and TJ are standing around a table discussing the recent
-      events.\n\nAllie: \u201CCargo was secure and nothing looks damaged at least.\u201D\r\nTJ:
-      \u201CWell that\u2019s a relief. Didn\u2019t want to end up stranded in the
-      sticks for nothing.\u201D\r\nAllie: \u201CYeah though with comms down we might
-      be here longer than we\u2019d want.\u201D\r\nTJ: \u201CI\u2019m sure it\u2019ll
-      turn out fine. Joanne is fixing everything up right now.\u201D\r\nAllie: \u201CYeah,
-      hopefully\u2026\u201D\r\n"
-    interactions:
-    - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
-      textResponse: "TJ: \u201CYou feeling alright Maria? That was a rough landing.
-        Do you need anything?\u201D\r\nYou nod your head and say you\u2019re fine.\r\nTJ:
-        \u201CThat\u2019s good news. Everyone is pretty much fine except for Joanne.
-        She got a nice new bruise on her leg thanks to some of her tools she forgot
-        to put away. Doesn\u2019t look broken or fractured, but it\u2019ll impede
-        her movement for a bit.\u201D\r\nAllie: \u201CWe\u2019re lucky that was it.
-        Could\u2019ve been a lot worse.\u201D\r\n"
-      actionResponse: {fileID: 0}
-  - characterDataName: TJ
-    characters:
-    - {fileID: 11400000, guid: e8b67e7018ee0a24b9cc972fe912d355, type: 2}
-    extraKeywords: []
+    roomDescriptionKey: 
+  - interactableObject: {fileID: 0}
     activatedAtStart: 0
-    roomDescription: 'TJ is cleaning up papers and cutlery that was thrown around
-      during the landing. '
-    interactions:
-    - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
-      textResponse: "TJ: \u201CJust glad everyone\u2019s OK. Could\u2019ve been a
-        lot worse.\u201D"
-      actionResponse: {fileID: 0}
-  - characterDataName: Allie
-    characters:
-    - {fileID: 11400000, guid: ce7bcdd73100133409aceea6c7ce544a, type: 2}
-    extraKeywords: []
+    roomDescriptionKey: 
+  - interactableObject: {fileID: 0}
     activatedAtStart: 0
-    roomDescription: Allie is helping out TJ with cleaning.
-    interactions:
-    - inputAction: {fileID: 11400000, guid: c1fdd299d5efde040850dff71f94dd58, type: 2}
-      textResponse: "You ask Allie about the vehicle crate in storage.\r\nAllie:
-        \u201CThat is a new model multi purpose vehicle. Perfect for surveying and
-        traversing a planet like this. It can work as a boat when it enters water.\u201D\r\nYou
-        ask if she thinks it could help us make it to Gamma.\r\nAllie: \u201CI\u2019m
-        sure it could. Isn\u2019t it against protocol to do something like this?
-        I guess this isn\u2019t the best situation though, so I\u2019m sure nobody
-        will mind. I\u2019ll meet you in the storage room.\u201D\r\r"
-      actionResponse: {fileID: 11400000, guid: 271203f8975365f4fa2153b693d144f0, type: 2}
+    roomDescriptionKey: 

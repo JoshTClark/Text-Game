@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Interactable
+[Serializable]
+public abstract class Interactable : ScriptableObject
 {
-    public string objectName = "Name";
+    public string displayName = "Name";
     public List<string> keyWords;
 
     public virtual bool Examine(InteractionData interactionData) { return false; }

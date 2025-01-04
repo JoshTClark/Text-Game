@@ -21,7 +21,6 @@ public class TextDataManager
                 reader.ReadHeader();
                 while (reader.Read())
                 {
-                    Debug.Log(reader.GetField("Key") + " - " + reader.GetField("Text"));
                     allText.Add(reader.GetField("Key"), reader.GetField("Text"));
                 }
             }

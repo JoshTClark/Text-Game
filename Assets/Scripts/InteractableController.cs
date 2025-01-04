@@ -35,7 +35,7 @@ public class InteractableController : MonoBehaviour
             foreach (InteractableObjectRoomData i in currentRoom.interactableObjectsInRoom)
             {
                 bool isObjectActive = i.activatedAtStart && !IsObjectInInventory(i.interactableObject);
-                roomState.AddObject(i.interactableObject.objectName.ToLower(), isObjectActive);
+                roomState.AddObject(i.dataName.ToLower(), isObjectActive);
             }
 
             roomDictionary.Add(currentRoom.name, roomState);
@@ -45,7 +45,7 @@ public class InteractableController : MonoBehaviour
 
         foreach (InteractableObjectRoomData i in currentRoom.interactableObjectsInRoom)
         {
-            if (currentState.isObjectActive(i.interactableObject.objectName))
+            if (currentState.isObjectActive(i.dataName))
             {
                 objectsInRoom.Add(i.interactableObject);
                 foreach (string s in i.interactableObject.keyWords) 
@@ -113,7 +113,7 @@ public class InteractableController : MonoBehaviour
 
             for (int i = 0; i < objectsInInventory.Count; i++)
             {
-                controller.LogStringWithReturn(objectsInInventory[i].objectName);
+                controller.LogStringWithReturn(objectsInInventory[i].displayName);
             }
         }
         else

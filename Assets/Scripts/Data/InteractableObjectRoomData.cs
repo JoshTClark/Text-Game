@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class InteractableObjectRoomData
 {
+    public string dataName;
     public Interactable interactableObject;
-    public bool activatedAtStart = false;
-    [TextArea]
-    public string roomDescription = "Description in room";
+    public bool activatedAtStart = true;
+    public string roomDescriptionKey = "";
 }

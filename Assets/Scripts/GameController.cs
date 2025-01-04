@@ -107,7 +107,7 @@ public class GameController : MonoBehaviour
 
     public string GetText(string key) 
     {
-        return key;
+        return textDataManager.GetText(key);
     }
 
     public void DisplayLoggedText()
@@ -122,19 +122,19 @@ public class GameController : MonoBehaviour
         UnpackRoom();
         Room currentRoom = navigation.currentRoom;
 
-        string finalDescription = currentRoom.description;
+        string finalDescription = GetText(currentRoom.descriptionKey);
 
         for (int i = 0; i < currentRoom.interactableObjectsInRoom.Count; i++)
         {
             InteractableObjectRoomData interactableObjectData = currentRoom.interactableObjectsInRoom[i];
 
-            string replaceText = "<" + interactableObjectData.interactableObject.objectName + ">";
+            string replaceText = "<" + interactableObjectData.dataName + ">";
 
             if (finalDescription.Contains(replaceText))
             {
-                if (interactables.IsObjectActivated(currentRoom, interactableObjectData.interactableObject.objectName))
+                if (interactables.IsObjectActivated(currentRoom, interactableObjectData.dataName))
                 {
-                    finalDescription = finalDescription.Replace(replaceText, interactableObjectData.roomDescription);
+                    finalDescription = finalDescription.Replace(replaceText, GetText(interactableObjectData.roomDescriptionKey));
                 }
                 else
                 {

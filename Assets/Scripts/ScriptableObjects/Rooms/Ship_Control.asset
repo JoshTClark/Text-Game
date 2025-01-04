@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083780a4aeac2b54ea31a4045ba3666a, type: 3}
   m_Name: Ship_Control
   m_EditorClassIdentifier: 
-  description: "The Henrietta\u2019s control room is full of screens monitoring everything
-    you could think of for a vessel like this. A few of the screens are reporting
-    errors, but it shouldn\u2019t be a big issue. You\u2019re already aware of the
-    faults in the system scans. There is a door to the engine room and a ladder up
-    to the commons. This room is also connected to the airlock which will let you
-    go outside. Will sits at the end of the room speaking into a microphone and adjusting
-    some knobs."
+  descriptionKey: ControlRoom_Desc
   exits:
   - keyStrings:
     - commons
