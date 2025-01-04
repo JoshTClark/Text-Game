@@ -28,9 +28,6 @@ public class GameController : MonoBehaviour
 
     private TextDataManager textDataManager;
 
-    [SerializeField]
-    private TextAsset textFile;
-
     // Text animation stuff
     [HideInInspector]
     public bool displayingText = false;
@@ -50,7 +47,7 @@ public class GameController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
 
         gameData = new GameData();
-        textDataManager = new TextDataManager(textFile);
+        textDataManager = new TextDataManager("Assets/Game Text Table - Full List.csv");
     }
 
     private void Start()
