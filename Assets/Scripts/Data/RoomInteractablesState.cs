@@ -6,7 +6,6 @@ using UnityEngine;
 public class RoomInteractablesState
 {
     private Dictionary<string, bool> objectActivatedDictionary = new Dictionary<string, bool>();
-    private Dictionary<string, bool> characterInteractionActivatedDictionary = new Dictionary<string, bool>();
 
     public RoomInteractablesState() { }
 
@@ -19,16 +18,6 @@ public class RoomInteractablesState
 
 
         objectActivatedDictionary.Add(objectName.ToLower(), isActive);
-    }
-
-    public void AddCharacter(string characterName, bool isActive)
-    {
-        if (characterInteractionActivatedDictionary.ContainsKey(characterName.ToLower()))
-        {
-            return;
-        }
-
-        characterInteractionActivatedDictionary.Add(characterName.ToLower(), isActive);
     }
 
     public bool isObjectActive(string objectName)
@@ -46,17 +35,6 @@ public class RoomInteractablesState
         return false;
     }
 
-    public bool isCharacterActive(string characterName)
-    {
-        if (characterInteractionActivatedDictionary.ContainsKey(characterName.ToLower()))
-        {
-            return characterInteractionActivatedDictionary[characterName.ToLower()];
-        }
-
-        Debug.Log("Couldn't find an character with name -" + characterName.ToLower() + "-");
-        return false;
-    }
-
     public void SetObjectActive(string objectName, bool isObjectActive)
     {
         if (objectActivatedDictionary.ContainsKey(objectName.ToLower()))
@@ -66,18 +44,6 @@ public class RoomInteractablesState
         else
         {
             Debug.Log("Cannot find object -" + objectName + "-");
-        }
-    }
-
-    public void SetCharacterActive(string characterName, bool isCharacterActive)
-    {
-        if (characterInteractionActivatedDictionary.ContainsKey(characterName.ToLower()))
-        {
-            characterInteractionActivatedDictionary[characterName.ToLower()] = isCharacterActive;
-        }
-        else
-        {
-            Debug.Log("Cannot find character -" + characterName + "-");
         }
     }
 }

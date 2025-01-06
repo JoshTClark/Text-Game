@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -7,12 +8,12 @@ public class RoomNavigation : MonoBehaviour
 {
     public Room currentRoom;
 
-    private GameController gameController;
+    private GameController controller;
     private Dictionary<string, Room> exitDictionary = new Dictionary<string, Room>();
 
     private void Awake()
     {
-        gameController = GetComponent<GameController>();
+        controller = GetComponent<GameController>();
     }
 
     public void UnpackExits()
@@ -26,16 +27,16 @@ public class RoomNavigation : MonoBehaviour
         }
     }
 
-    public void AttemptToChangeRooms(string input)
+    public void AttemptToChangeRooms(OrganizedInputWordsData wordData)
     {
-        if (exitDictionary.ContainsKey(input))
+        if (controller.TestInputText(wordData, exitDictionary.Keys.ToList<string>()))
         {
-            currentRoom = exitDictionary[input];
-            gameController.DisplayRoomText();
+            currentRoom = exitDictionary[wordData.fullNoun];
+            controller.DisplayRoomText();
         }
         else
         {
-            gameController.LogStringWithReturn("You can not go " + input);
+            controller.LogStringWithReturn("You can not go " + wordData.nounFirstWord);
         }
     }
 

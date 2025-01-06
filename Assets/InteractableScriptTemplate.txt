@@ -1,10 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "TextGame/Interactables/Levi")]
-public class Levi : Interactable
+[CreateAssetMenu(menuName = "TextGame/Interactables/#FILE_NAME#")]
+public class #FILE_NAME# : Interactable
 {
     // Text keys and other variables
-    public string helmTalkKey;
 
     // Getting commonly used values
     //string currentRoom = interactionData.controller.navigation.currentRoom.name;
@@ -32,15 +31,6 @@ public class Levi : Interactable
 
     public override bool Talk(InteractionData interactionData)
     {
-        string currentRoom = interactionData.controller.navigation.currentRoom.name;
-        GameController controller = interactionData.controller;
-        // Talking to levi in the helm
-        if (currentRoom == "Ship_Helm")
-        {
-            controller.LogStringWithReturn(controller.GetText(helmTalkKey));
-            return true;
-        }
-
         return false;
     }
 

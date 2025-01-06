@@ -19,6 +19,7 @@ MonoBehaviour:
     - commons
     valueRoom: {fileID: 11400000, guid: 030ba34d4e639554aa2c8c02305a3622, type: 2}
   interactableObjectsInRoom:
-  - interactableObject: {fileID: 0}
+  - dataName: welder
+    interactableObject: {fileID: 11400000, guid: 83edd3d70ea6bdc40a4a9f10d53ca07c, type: 2}
     activatedAtStart: 1
-    roomDescriptionKey: 
+    roomDescriptionKey: LivingQuarters_Welder_Desc

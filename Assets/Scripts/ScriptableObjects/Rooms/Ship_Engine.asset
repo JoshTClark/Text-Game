@@ -24,6 +24,11 @@ MonoBehaviour:
     - door
     valueRoom: {fileID: 11400000, guid: fb097c0b9fb4d7640b4ebbc4c1811b28, type: 2}
   interactableObjectsInRoom:
-  - interactableObject: {fileID: 0}
+  - dataName: Joanne
+    interactableObject: {fileID: 11400000, guid: c166b0d7613705b489b2447842db95c4, type: 2}
     activatedAtStart: 1
-    roomDescriptionKey: 
+    roomDescriptionKey: EngineRoom_Joanne_Desc
+  - dataName: crowbar
+    interactableObject: {fileID: 11400000, guid: 86fc79c53ef26994facc5a8bbb95e3a3, type: 2}
+    activatedAtStart: 1
+    roomDescriptionKey: EngineRoom_Crowbar_Desc

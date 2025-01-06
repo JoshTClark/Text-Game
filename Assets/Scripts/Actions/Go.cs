@@ -11,7 +11,7 @@ public class Go : TextInputAction
         if (wordData.hasNoun)
         {
             string noun = wordData.nounFirstWord;
-            controller.navigation.AttemptToChangeRooms(noun);
+            controller.navigation.AttemptToChangeRooms(wordData);
         }
         else
         {

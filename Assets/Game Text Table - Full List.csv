@@ -1,27 +1,48 @@
 Key,Text
 Helm_Desc,"You stand at the helm of the IPRV Henrietta. There is a single door leading to the common area of the ship. <Levi> Your command terminal is showing several errors, but you are already aware of this. It’s nothing threatening and the crew is sorting it out."
-Commons_Desc,"You are in the commons of the IPRV Henrietta. This room connects to the living quarters to the right, storage at one end, and the helm at the other. There is also a ladder down to the control room. <TJ_Allie><TJ><Allie>"
+Commons_Desc,"You are in the commons of the IPRV Henrietta. This room connects to the living quarters to the right, storage at one end, and the helm at the other. There is also a ladder down to the control room. <TJ1><TJ2>"
 ControlRoom_Desc,"The Henrietta’s control room is full of screens monitoring everything you could think of for a vessel like this. A few of the screens are reporting errors, but it shouldn’t be a big issue. You’re already aware of the faults in the system scans. There is a door to the engine room and a ladder up to the commons. This room is also connected to the airlock which will let you go outside. Will sits at the end of the room speaking into a microphone and adjusting some knobs."
 EngineRoom_Desc,The hum of the ship’s miniature fusion reactor fills the engine room<Joanne>.<crowbar> There is a ladder leading up to storage and a door leading to the control room.
 LivingQuarters_Desc,"There are several small rooms belonging to the crew on each side of the living quarters, and in the middle are two shared bathrooms. Behind you is the door to the commons. It would be rude to search through your crew’s personal belongings so you leave them be. However you notice Joanne’s door is wide open. It looks as if someone had opened all her boxes and drawers and thrown everything on the ground. Small bits of machinery, screws, metal rods, and the like are sprinkled around the room. <welder>"
 Storage_Desc,The Henrietta’s storage room is full of crates and boxes. Luckily it looks like nothing was damaged during the landing. In the back of the room is a ladder leading down to the engine room. At the other end is the door to the commons. <box> <Allie1>
 Helm_Levi_Talk,"Levi: “Sorry about that captain. I just couldn’t control her well in those winds. Ship’s AI thought the best option was to find a suitable landing spot away from Gamma, and I think so too. Could’ve ended up much worse had we failed to land properly at Gamma, and there was no way we could reverse our speed after atmospheric entry. I don’t think we’ll be taking the Henrietta anywhere else soon either. This storm isn’t letting up at all. I wonder if there’s another way to get to Gamma from here.”"
 Helm_Levi_Desc,Levi is reading system scans off of the monitor in the pilot’s seat.
-Commons_TJAllie_Desc,"Allie and TJ are standing around a table discussing the recent events.
+Commons_TJ_Desc1,"Allie and TJ are standing around a table discussing the recent events.
 
 Allie: “Cargo was secure and nothing looks damaged at least.”
 TJ: “Well that’s a relief. Didn’t want to end up stranded in the sticks for nothing.”
 Allie: “Yeah though with comms down we might be here longer than we’d want.”
 TJ: “I’m sure it’ll turn out fine. Joanne is fixing everything up right now.”
 Allie: “Yeah, hopefully…”"
-Commons_TJAllie_Talk,"TJ: “You feeling alright Maria? That was a rough landing. Do you need anything?”
+Commons_TJ_Desc2,TJ is cleaning up lose objects.
+Commons_TJAllie_Talk,"TJ: “You feeling alright <player>? That was a rough landing. Do you need anything?”
 You nod your head and say you’re fine.
 TJ: “That’s good news. Everyone is pretty much fine except for Joanne. She got a nice new bruise on her leg thanks to some of her tools she forgot to put away. Doesn’t look broken or fractured, but it’ll impede her movement for a bit.”
-Allie: “We’re lucky that was it. Could’ve been a lot worse.”"
+Allie: “We’re lucky that was it. Could’ve been a lot worse."""
 Commons_Allie_Talk,"You ask Allie about the vehicle crate in storage.
 Allie: “That is a new model multi purpose vehicle. Perfect for surveying and traversing a planet like this. It can work as a boat when it enters water.”
 You ask if she thinks it could help us make it to Gamma.
 Allie: “I’m sure it could. Isn’t it against protocol to do something like this? I guess this isn’t the best situation though, so I’m sure nobody will mind. I’ll meet you in the storage room."""
 Commons_TJ_Talk,TJ: “Just glad everyone’s OK. Could’ve been a lot worse.”
-Commons_Allie_Desc,Allie is helping clean too.
-Commons_TJ_Desc,TJ is cleaning up lose objects.
+Storage_VCrate_Desc,One box looks particularly interesting. Branded on the side of it reads “Aquila Deep Mining Co. - Multi Purpose Terrain Vehicle”.
+Storage_Allie_Desc,Allie is inspecting the box.
+VCrate_Examine,A vehicle like this should be perfect for traversing the planet. However it seems to be bolted closed tightly. You recall Allie inspecting the cargo before takeoff. Maybe she knows more about it.
+VCrate_Open1,The box is bolted shut and can not be opened.
+Storage_Allie_Talk,Allie: “Seems to be magnetically bolted. We would need a specialized tool to open it but if we can pop open the crate I’ll get the vehicle outside for us.”
+Crowbar_Use_VCrate,"Allie: “Nice the crowbar should be perfect for opening this up.”
+You slide the crowbar inbetween the cracks of the crate's metal walls. You hear a click and the metal wall suddenly becomes easy to remove, and it drops to the ground with a thud.
+Allie: “I’ll take her outside through the Henrietta’s cargo hold airlock. I’ll meet you and everyone else in the control room after.”"
+Crowbar_Use_VCrate_No_Allie,You should check with Allie first so you don't end up with damaged cargo and a good scolding from the higher ups.
+LivingQuarters_Welder_Desc,Of everything you notice a handheld plasma welder on the ground. 
+Welder_Take,You put the welder in your suits backpack.
+EngineRoom_Joanne_Talk,"Joanne jumps as you bring her out of her world to talk.
+Joanne: “Sorry about that Maria. I’m just a little on edge. Nothing seems to be seriously broken though. Some systems are down but it seems it’s a superficial issue caused by the shaking during landing. Should have everything back up and running in no time. Just need to remember where I put that welder…”"
+" 
+         
+EngineRoom_Give_Welder_Joanne","You hand the plasma welder to Joanne.
+Joanne: “Thanks Maria you’re a lifesaver! This should only take a minute then we’ll have all systems back in action.”
+Within a few minutes Joanne has fixed what she needed to.
+Joanne: ""I'll see you in the control room. I'm going to check what else needs to be fixed."""
+Crowbar_Take,You attach the crowbar to the back of your suit's belt.
+EngineRoom_Joanne_Desc,"… alongside the murmurs and hushed vulgarity of Joanne as she hurries back and forth between screens, valves, open panels. She doesn’t even notice you"
+EngineRoom_Crowbar_Desc,On the ground lies a magnetic crowbar next to a pile of some of her tools.

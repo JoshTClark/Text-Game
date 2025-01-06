@@ -31,12 +31,15 @@ MonoBehaviour:
     - down
     valueRoom: {fileID: 11400000, guid: fb097c0b9fb4d7640b4ebbc4c1811b28, type: 2}
   interactableObjectsInRoom:
-  - interactableObject: {fileID: 0}
+  - dataName: Allie
+    interactableObject: {fileID: 11400000, guid: ddf506c2daa45b743a47518bfe4533c9, type: 2}
     activatedAtStart: 1
     roomDescriptionKey: 
-  - interactableObject: {fileID: 0}
+  - dataName: TJ1
+    interactableObject: {fileID: 11400000, guid: ec9c9d9c1d37abe478150ab8d227cbb6, type: 2}
+    activatedAtStart: 1
+    roomDescriptionKey: Commons_TJ_Desc1
+  - dataName: TJ2
+    interactableObject: {fileID: 11400000, guid: ec9c9d9c1d37abe478150ab8d227cbb6, type: 2}
     activatedAtStart: 0
-    roomDescriptionKey: 
-  - interactableObject: {fileID: 0}
-    activatedAtStart: 0
-    roomDescriptionKey: 
+    roomDescriptionKey: Commons_TJ_Desc2

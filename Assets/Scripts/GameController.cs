@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using static GameData;
 
 public class GameController : MonoBehaviour
 {
@@ -45,15 +46,15 @@ public class GameController : MonoBehaviour
         navigation = GetComponent<RoomNavigation>();
         interactables = GetComponent<InteractableController>();
         playerInput = GetComponent<PlayerInput>();
-
         gameData = new GameData();
+
         textDataManager = new TextDataManager("Assets/Game Text Table - Full List.csv");
     }
 
     private void Start()
     {
         DisplayRoomText();
-        DisplayLoggedText(); 
+        DisplayLoggedText();
     }
 
     private void Update()
@@ -105,9 +106,24 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public string GetText(string key) 
+    public string GetText(string key)
     {
         return textDataManager.GetText(key);
+    }
+
+    public bool GetFlag(GlobalFlag flag)
+    {
+        return gameData.GetFlag(flag);
+    }
+
+    public void SetFlag(GlobalFlag flag, bool value)
+    {
+        gameData.SetFlag(flag, value);
+    }
+
+    public string GetPlayerName()
+    {
+        return gameData.PlayerName;
     }
 
     public void DisplayLoggedText()
@@ -122,33 +138,49 @@ public class GameController : MonoBehaviour
         UnpackRoom();
         Room currentRoom = navigation.currentRoom;
 
-        string finalDescription = GetText(currentRoom.descriptionKey);
+        LogStringWithReturn(GetText(currentRoom.descriptionKey));
+    }
 
+    public string CleanText(string text)
+    {
+        Room currentRoom = navigation.currentRoom;
+
+        string finalText = text;
+
+        // Replace references to player's name
+        string replaceNameText = "<player>";
+        if (finalText.Contains(replaceNameText))
+        {
+            //Debug.Log("replace name");
+            finalText = finalText.Replace(replaceNameText, GetPlayerName());
+        }
+
+        // Replace references to object descriptions in room
         for (int i = 0; i < currentRoom.interactableObjectsInRoom.Count; i++)
         {
             InteractableObjectRoomData interactableObjectData = currentRoom.interactableObjectsInRoom[i];
 
-            string replaceText = "<" + interactableObjectData.dataName + ">";
+            string replaceObjectText = "<" + interactableObjectData.dataName + ">";
 
-            if (finalDescription.Contains(replaceText))
+            if (finalText.Contains(replaceObjectText))
             {
                 if (interactables.IsObjectActivated(currentRoom, interactableObjectData.dataName))
                 {
-                    finalDescription = finalDescription.Replace(replaceText, GetText(interactableObjectData.roomDescriptionKey));
+                    finalText = finalText.Replace(replaceObjectText, GetText(interactableObjectData.roomDescriptionKey));
                 }
                 else
                 {
-                    finalDescription = finalDescription.Replace(replaceText, "");
+                    finalText = finalText.Replace(replaceObjectText, "");
                 }
             }
         }
 
-        LogStringWithReturn(finalDescription);
+        return finalText;
     }
 
     public void LogStringWithReturn(string stringToAdd, bool showInstant = false)
     {
-        if(stringToAdd == "") 
+        if (stringToAdd == "")
         {
             return;
         }
@@ -163,8 +195,9 @@ public class GameController : MonoBehaviour
             return;
         }
 
+        string cleanedText = CleanText(stringToAdd);
         TextActionLog log = new TextActionLog();
-        log.text = stringToAdd;
+        log.text = cleanedText;
         log.showInstant = showInstant;
 
         actionLog.Add(log);
@@ -185,20 +218,25 @@ public class GameController : MonoBehaviour
     public bool TestInputText(OrganizedInputWordsData wordData)
     {
         List<string> keyList = new List<string>(interactables.currentInteractableDictionary.Keys);
+        return TestInputText(wordData, keyList);
+    }
+
+    public bool TestInputText(OrganizedInputWordsData wordData, List<string> keyList)
+    {
         string nounFirstWord = wordData.nounFirstWord.ToLower();
         if (keyList.Contains(nounFirstWord))
         {
             wordData.fullNoun = wordData.nounFirstWord;
             return true;
         }
-        else 
+        else
         {
-            foreach (string key in keyList) 
+            foreach (string key in keyList)
             {
                 char[] delimiterCharacters = { ' ' };
                 List<string> seperatedKey = new List<string>(key.Split(delimiterCharacters));
                 Debug.Log(key);
-                if (seperatedKey.Count <= 1) 
+                if (seperatedKey.Count <= 1)
                 {
                     continue;
                 }
@@ -206,7 +244,7 @@ public class GameController : MonoBehaviour
                 {
                     Debug.Log("checking key for further words");
                     int keyIndex = 0;
-                    for (int i = wordData.nounStartIndex; i < wordData.seperatedInput.Length; i++) 
+                    for (int i = wordData.nounStartIndex; i < wordData.seperatedInput.Length; i++)
                     {
                         Debug.Log("checking input-" + wordData.seperatedInput[i] + " and key-" + seperatedKey[keyIndex]);
                         if (wordData.seperatedInput[i] == seperatedKey[keyIndex])

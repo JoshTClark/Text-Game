@@ -2,17 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TJ : MonoBehaviour
+[CreateAssetMenu(menuName = "TextGame/Interactables/TJ")]
+public class TJ : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
+    // Text keys and other variables
+    public string commonsTalkKey1;
+    public string commonsTalkKey2;
+
+    // Getting commonly used values
+    //string currentRoom = interactionData.controller.navigation.currentRoom.name;
+    //GameController controller = interactionData.controller;
+
+    public override bool Examine(InteractionData interactionData)
     {
-        
+        return false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override bool Give(InteractionData interactionData)
     {
-        
+        return false;
+    }
+
+    public override bool Open(InteractionData interactionData)
+    {
+        return false;
+    }
+
+    public override bool Take(InteractionData interactionData)
+    {
+        return false;
+    }
+
+    public override bool Talk(InteractionData interactionData)
+    {
+        string currentRoom = interactionData.controller.navigation.currentRoom.name;
+        if (currentRoom == "Ship_Commons")
+        {
+            interactionData.controller.LogStringWithReturn(interactionData.controller.GetText(commonsTalkKey1));
+            return true;
+        }
+
+        return false;
+    }
+
+    public override bool Use(InteractionData interactionData)
+    {
+        return false;
     }
 }

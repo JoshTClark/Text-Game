@@ -36,6 +36,7 @@ public class InteractableController : MonoBehaviour
             {
                 bool isObjectActive = i.activatedAtStart && !IsObjectInInventory(i.interactableObject);
                 roomState.AddObject(i.dataName.ToLower(), isObjectActive);
+                roomState.AddObject(i.dataName.ToLower(), isObjectActive);
             }
 
             roomDictionary.Add(currentRoom.name, roomState);
@@ -92,19 +93,6 @@ public class InteractableController : MonoBehaviour
         }
     }
 
-    public void SetCharacterActive(string characterName, bool isCharacterActive, Room room)
-    {
-        if (roomDictionary.ContainsKey(room.name))
-        {
-            roomDictionary[room.name].SetCharacterActive(characterName, isCharacterActive);
-            controller.PrepareInteractables(controller.navigation.currentRoom);
-        }
-        else
-        {
-            Debug.Log("Cannot find room -" + room.name + "-");
-        }
-    }
-
     public void DisplayInventory()
     {
         if (objectsInInventory.Count > 0)
@@ -124,6 +112,7 @@ public class InteractableController : MonoBehaviour
 
     public void ClearCollections()
     {
+        currentInteractableDictionary.Clear();
         objectsInRoom.Clear();
     }
 

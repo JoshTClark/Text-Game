@@ -24,4 +24,8 @@ MonoBehaviour:
     - engines
     - door
     valueRoom: {fileID: 11400000, guid: cb8191091085d06429f3260e7512bc45, type: 2}
-  interactableObjectsInRoom: []
+  interactableObjectsInRoom:
+  - dataName: will
+    interactableObject: {fileID: 11400000, guid: 6d6e39b3f494f8948a1ff9539bfd2fe0, type: 2}
+    activatedAtStart: 1
+    roomDescriptionKey: 
